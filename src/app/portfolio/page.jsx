@@ -67,7 +67,7 @@ export default function PortfolioPage() {
                       <span className="block font-display text-base font-semibold text-forest-900">
                         {item.name}
                       </span>
-                      <span className="mt-1 block text-xs font-normal italic text-forest-600">
+                      <span className="script mt-1 block text-lg font-normal text-forest-600">
                         {item.brand}
                       </span>
                     </th>

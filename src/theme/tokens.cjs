@@ -46,6 +46,8 @@ const typography = {
   fontFamily: {
     sans: ['var(--font-sans)', 'ui-sans-serif', 'system-ui', 'sans-serif'],
     display: ['var(--font-display)', 'ui-serif', 'Georgia', 'serif'],
+    /** Flourish face — eyebrows, taglines, accented words. Never body copy. */
+    script: ['var(--font-script)', 'ui-serif', 'Apple Chancery', 'cursive'],
   },
   /** Letter-spacing used by the small-caps labels that run through the site. */
   tracking: {

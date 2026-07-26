@@ -71,7 +71,7 @@ function PortfolioCard({ item }) {
             <h3 className="font-display text-lg font-semibold leading-snug text-forest-900">
               {item.name}
             </h3>
-            <p className="mt-1 text-xs italic text-forest-600">{item.brand}</p>
+            <p className="script mt-1 text-lg text-forest-600">{item.brand}</p>
           </div>
         </div>
 

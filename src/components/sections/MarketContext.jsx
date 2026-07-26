@@ -74,8 +74,8 @@ export function GlobalContext({ tone = 'white' }) {
               <p
                 className={
                   item.featured
-                    ? 'mt-2 text-xs italic text-forest-200/70'
-                    : 'mt-2 text-xs italic text-forest-600'
+                    ? 'script mt-2 text-lg text-forest-200/70'
+                    : 'script mt-2 text-lg text-forest-600'
                 }
               >
                 {item.caption}

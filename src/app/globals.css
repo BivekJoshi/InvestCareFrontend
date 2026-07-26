@@ -47,14 +47,28 @@
 }
 
 @layer components {
+  /**
+   * Section eyebrows run in the script face. A formal cursive needs a larger
+   * size and its own line-height to clear ascenders and descenders, so these
+   * do not share the small-caps metrics the rest of the labels use.
+   */
   .eyebrow {
-    @apply inline-flex items-center rounded-full border border-forest-200 bg-forest-50 px-4 py-1.5
-           text-[11px] font-semibold uppercase tracking-eyebrow text-forest-600;
+    @apply inline-flex items-center rounded-full border border-forest-200 bg-forest-50 px-5 py-0.5
+           font-script text-2xl font-normal normal-case leading-[1.6] tracking-normal text-forest-600;
   }
 
   .eyebrow-invert {
-    @apply inline-flex items-center rounded-full border border-white/15 bg-white/10 px-4 py-1.5
-           text-[11px] font-semibold uppercase tracking-eyebrow text-forest-100;
+    @apply inline-flex items-center rounded-full border border-white/15 bg-white/10 px-5 py-0.5
+           font-script text-2xl font-normal normal-case leading-[1.6] tracking-normal text-gold-300;
+  }
+
+  /**
+   * Flourish text — taglines, quotes, accented words. Sits in @layer
+   * components so a call site can still set its own size with `text-*`.
+   */
+  .script {
+    @apply font-script font-normal not-italic tracking-normal;
+    line-height: 1.5;
   }
 
   .surface-card {

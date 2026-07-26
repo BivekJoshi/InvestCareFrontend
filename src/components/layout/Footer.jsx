@@ -23,7 +23,7 @@ export default function Footer() {
             <p className="mt-6 max-w-sm text-sm leading-relaxed text-forest-200/75">
               {company.intro.split('.')[0]}.
             </p>
-            <p className="mt-6 font-display text-lg italic text-gold-400">
+            <p className="script mt-6 text-2xl text-gold-400">
               “{company.tagline}”
             </p>
           </div>

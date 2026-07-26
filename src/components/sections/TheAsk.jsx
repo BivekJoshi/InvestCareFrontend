@@ -38,6 +38,8 @@ export default function TheAsk({ tone = 'light' }) {
       </div>
 
       <Reveal className="mt-8">
+        {/* Regulatory footnote — stays in the sans face; a full sentence of
+            script costs more legibility than the flourish is worth. */}
         <p className="text-sm italic leading-relaxed text-forest-800/70">{note}</p>
       </Reveal>
 

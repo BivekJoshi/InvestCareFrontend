@@ -17,7 +17,7 @@ export default function CallToAction({
       />
 
       <Reveal className="container relative flex flex-col items-center text-center">
-        <p className="text-[11px] font-semibold uppercase tracking-[0.28em] text-gold-400">
+        <p className="script text-2xl text-gold-400 sm:text-3xl">
           {company.tagline}
         </p>
         <h2 className="mt-6 max-w-2xl text-3xl font-bold leading-tight text-balance text-white sm:text-4xl md:text-5xl">

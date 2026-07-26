@@ -31,7 +31,7 @@ export default function HeroRaisePanel() {
 
       <figure className="ring-gradient relative rounded-3xl bg-forest-950/65 p-6 backdrop-blur-md sm:p-7">
         <figcaption className="flex items-center justify-between gap-4">
-          <span className="text-[11px] font-semibold uppercase tracking-eyebrow text-forest-200/70">
+          <span className="script text-xl text-forest-200/80">
             {heroRaise.eyebrow}
           </span>
           <span className="inline-flex items-center gap-1.5 rounded-full bg-gold-500/15 px-3 py-1 text-[10px] font-semibold uppercase tracking-label text-gold-300">

@@ -57,7 +57,7 @@ export default function QuoteParallax() {
 
           <motion.p
             aria-hidden="true"
-            className="font-display text-2xl font-medium italic leading-[1.35] sm:text-3xl md:text-[2.6rem]"
+            className="script text-3xl leading-[1.45] sm:text-4xl md:text-[3.1rem]"
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, amount: 0.4 }}

@@ -1,4 +1,4 @@
-import { Inter, Fraunces } from 'next/font/google';
+import { Inter, Fraunces, Great_Vibes } from 'next/font/google';
 import './globals.css';
 
 import Navbar from '@/components/layout/Navbar';
@@ -21,6 +21,17 @@ const display = Fraunces({
   display: 'swap',
   weight: ['400', '600', '700'],
   variable: '--font-display',
+});
+
+/**
+ * Flourish face. Used for eyebrows, taglines and accented words only — never
+ * for body copy or figures, where a formal script costs too much legibility.
+ */
+const script = Great_Vibes({
+  subsets: ['latin'],
+  display: 'swap',
+  weight: ['400'],
+  variable: '--font-script',
 });
 
 export const metadata = {
@@ -62,7 +73,7 @@ export const viewport = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en" className={`${sans.variable} ${display.variable}`}>
+    <html lang="en" className={`${sans.variable} ${display.variable} ${script.variable}`}>
       <body className="flex min-h-screen flex-col">
         <ThemeProvider>
           <Preloader />

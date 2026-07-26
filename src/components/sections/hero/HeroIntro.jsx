@@ -55,7 +55,9 @@ export default function HeroIntro() {
 
       <h1 className="mt-7 font-display text-[clamp(2.35rem,4.4vw,3.9rem)] font-bold leading-[1.05] text-white">
         {heroHeadline.map((line, index) => (
-          <span key={line.text} className="block overflow-hidden pb-1">
+          // The script accent overshoots its line box, so every line carries
+          // enough bottom padding for the tallest of them.
+          <span key={line.text} className="block overflow-hidden pb-2">
             <motion.span
               className="block"
               initial={{ y: '110%' }}
@@ -117,11 +119,13 @@ export default function HeroIntro() {
   );
 }
 
-/** Gold-gradient word with a slow sheen sweeping across it. */
+/** Gold-gradient script word with a slow sheen sweeping across it. */
 function AccentWord({ children }) {
   return (
     <span className="relative inline-block">
-      <span className="text-gradient-gold">{children}</span>
+      {/* Cursive reads optically smaller than the display face — the bump
+          keeps the accented word the same visual weight as the lines above. */}
+      <span className="script text-gradient-gold pr-2 text-[1.18em] leading-[1.25]">{children}</span>
       <span
         className="pointer-events-none absolute inset-y-0 left-0 w-16 -skew-x-12 animate-sheen
                    bg-gradient-to-r from-transparent via-white/30 to-transparent motion-reduce:hidden"

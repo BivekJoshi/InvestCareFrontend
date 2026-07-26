@@ -57,7 +57,7 @@ export default function ContactPage() {
             </InfoCard>
 
             <div className="rounded-2xl bg-forest-900 p-8 text-cream shadow-lift">
-              <p className="font-display text-lg italic text-gold-400">“{company.tagline}”</p>
+              <p className="script text-2xl text-gold-400">“{company.tagline}”</p>
               <p className="mt-4 text-sm leading-relaxed text-forest-100/70">
                 Invest Care Limited · Reg. No. 175982/074/075 · PAN 606875855
               </p>

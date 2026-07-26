@@ -75,7 +75,7 @@ export default function Preloader() {
             <p className="mt-8 font-display text-2xl font-semibold tracking-tight text-cream sm:text-3xl">
               {company.name}
             </p>
-            <p className="mt-2 text-[11px] uppercase tracking-[0.34em] text-gold-400">
+            <p className="script mt-2 text-xl text-gold-400">
               {company.tagline}
             </p>
 

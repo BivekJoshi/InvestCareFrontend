@@ -1,7 +1,14 @@
 'use client';
 
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { AnimatePresence, motion, useReducedMotion, useScroll, useSpring } from 'framer-motion';
+import {
+  AnimatePresence,
+  motion,
+  useMotionValueEvent,
+  useReducedMotion,
+  useScroll,
+  useSpring,
+} from 'framer-motion';
 import { Binoculars, HandCoins, LineChart, Handshake } from 'lucide-react';
 
 import Section from '@/components/ui/Section';
@@ -89,6 +96,15 @@ export default function CapitalJourney() {
   });
   const progress = reduceMotion ? scrollYProgress : smoothProgress;
 
+  /**
+   * Once the last step has cleared the reading line the dial has nothing left
+   * to report, so it retires — and comes back if the reader scrolls up again.
+   */
+  const [complete, setComplete] = useState(false);
+  useMotionValueEvent(scrollYProgress, 'change', (value) => {
+    setComplete(value >= 0.995);
+  });
+
   const goToStep = useCallback(
     (index) => {
       stepRefs.current[index]?.scrollIntoView({
@@ -105,7 +121,7 @@ export default function CapitalJourney() {
     <Section id="approach" tone="white" className="py-0 md:py-0">
       <div className="grid gap-10 lg:grid-cols-[minmax(0,0.8fr)_minmax(0,1fr)] lg:gap-20">
         {/* Pinned panel */}
-        <div className="pt-16 lg:sticky lg:top-32 lg:h-fit lg:py-28">
+        <div className="pt-16 lg:sticky lg:top-28 lg:h-fit lg:py-28">
           <span className="eyebrow">How We Work</span>
 
           <TextReveal
@@ -122,57 +138,61 @@ export default function CapitalJourney() {
 
           {/* Dial + jump-to navigation, desktop only — mobile gets the sticky bar below. */}
           <div className="mt-10 hidden lg:block">
-            <div className="flex items-center gap-5">
-              <div className="relative h-20 w-20 shrink-0">
-                <svg viewBox="0 0 100 100" className="h-full w-full -rotate-90" aria-hidden="true">
-                  <circle
-                    cx="50"
-                    cy="50"
-                    r="46"
-                    fill="none"
-                    strokeWidth="4"
-                    className="stroke-forest-100"
-                  />
-                  <motion.circle
-                    cx="50"
-                    cy="50"
-                    r="46"
-                    fill="none"
-                    strokeWidth="4"
-                    strokeLinecap="round"
-                    className="stroke-gold-500"
-                    style={{ pathLength: progress }}
-                  />
-                </svg>
-
-                <span className="absolute inset-0 flex items-center justify-center">
-                  <AnimatePresence mode="wait" initial={false}>
+            <AnimatePresence initial={false}>
+              {!complete && (
+                <motion.div
+                  key="dial"
+                  className="overflow-hidden"
+                  initial={{ opacity: 1, height: '14rem' }}
+                  animate={{ opacity: 1, height: '14rem' }}
+                  exit={{ opacity: 0, height: 0, scale: 0.94 }}
+                  transition={{ duration: 0.45, ease: EASE }}
+                >
+                  <div className="relative flex h-56 w-56 items-center justify-center">
+                    <span className="absolute inset-0 rounded-full border border-forest-100" />
+                    <span className="absolute inset-6 rounded-full border border-forest-100" />
                     <motion.span
-                      key={active}
-                      initial={{ opacity: 0, scale: 0.7 }}
-                      animate={{ opacity: 1, scale: 1 }}
-                      exit={{ opacity: 0, scale: 0.7 }}
-                      transition={{ duration: 0.28, ease: EASE }}
-                      className="flex h-11 w-11 items-center justify-center rounded-full bg-forest-800 text-cream"
-                    >
-                      <ActiveIcon className="h-5 w-5" aria-hidden="true" />
-                    </motion.span>
-                  </AnimatePresence>
-                </span>
-              </div>
+                      className="absolute inset-0 rounded-full border-2 border-transparent border-t-gold-500"
+                      animate={{ rotate: active * 90 }}
+                      transition={{ duration: 0.8, ease: EASE }}
+                      aria-hidden="true"
+                    />
 
-              <div>
-                <p className="text-[11px] font-semibold uppercase tracking-label text-forest-500">
-                  Step <span className="tabular-nums text-forest-900">{pad(active + 1)}</span> of{' '}
-                  <span className="tabular-nums">{TOTAL}</span>
-                </p>
-                <p className="mt-1 font-display text-xl font-semibold text-forest-900">
-                  {STEPS[active].title}
-                </p>
-              </div>
-            </div>
+                    <div className="relative flex flex-col items-center text-center">
+                      <AnimatePresence mode="wait" initial={false}>
+                        <motion.span
+                          key={active}
+                          initial={{ opacity: 0, scale: 0.8 }}
+                          animate={{ opacity: 1, scale: 1 }}
+                          exit={{ opacity: 0, scale: 0.8 }}
+                          transition={{ duration: 0.3, ease: EASE }}
+                          className="flex h-14 w-14 items-center justify-center rounded-full bg-forest-800 text-cream"
+                        >
+                          <ActiveIcon className="h-6 w-6" aria-hidden="true" />
+                        </motion.span>
+                      </AnimatePresence>
 
-            <nav aria-label="Capital journey steps" className="mt-8 space-y-1">
+                      <p className="mt-4 font-display text-4xl font-bold tabular-nums text-forest-900">
+                        {pad(active + 1)}
+                        <span className="text-lg text-forest-300">/{TOTAL}</span>
+                      </p>
+
+                      <motion.p
+                        key={`label-${active}`}
+                        initial={{ opacity: 0, y: 6 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.4, ease: EASE }}
+                        className="mt-2 text-xs font-semibold uppercase tracking-label text-gold-600"
+                      >
+                        {STEPS[active].title}
+                      </motion.p>
+                    </div>
+                  </div>
+                </motion.div>
+              )}
+            </AnimatePresence>
+
+            <nav aria-label="Capital journey steps" className="mt-8 space-y-0.5">
               {STEPS.map((step, i) => {
                 const isActive = active === i;
 
@@ -183,7 +203,7 @@ export default function CapitalJourney() {
                     onClick={() => goToStep(i)}
                     aria-current={isActive ? 'step' : undefined}
                     className={cn(
-                      'relative flex w-full items-center gap-3 rounded-xl py-2.5 pl-4 pr-3 text-left',
+                      'relative flex w-full items-center gap-3 rounded-xl py-2 pl-4 pr-3 text-left',
                       'transition-colors duration-300 focus-visible:outline-none focus-visible:ring-2',
                       'focus-visible:ring-gold-500 focus-visible:ring-offset-2',
                       isActive
@@ -218,20 +238,33 @@ export default function CapitalJourney() {
         {/* Scrolling steps */}
         <div className="pb-16 lg:py-28">
           {/* Mobile progress cue — the pinned dial has no room to live here. */}
-          <div className="sticky top-[calc(var(--header-height)+0.75rem)] z-20 mb-8 flex items-center gap-3 rounded-full border border-forest-100 bg-white/90 px-4 py-2.5 shadow-card backdrop-blur lg:hidden">
-            <span className="text-[11px] font-semibold tabular-nums text-gold-600">
-              {pad(active + 1)}/{TOTAL}
-            </span>
-            <span className="truncate text-xs font-semibold text-forest-900">
-              {STEPS[active].title}
-            </span>
-            <span className="ml-auto h-1 w-14 shrink-0 overflow-hidden rounded-full bg-forest-100">
-              <motion.span
-                className="block h-full origin-left rounded-full bg-forest-700"
-                style={{ scaleX: progress }}
-                aria-hidden="true"
-              />
-            </span>
+          <div className="sticky top-[calc(var(--header-height)+0.75rem)] z-20 mb-8 lg:hidden">
+            <AnimatePresence initial={false}>
+              {!complete && (
+                <motion.div
+                  key="mobile-progress"
+                  className="flex items-center gap-3 rounded-full border border-forest-100 bg-white/90 px-4 py-2.5 shadow-card backdrop-blur"
+                  initial={{ opacity: 1, y: 0 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -10 }}
+                  transition={{ duration: 0.35, ease: EASE }}
+                >
+                  <span className="text-[11px] font-semibold tabular-nums text-gold-600">
+                    {pad(active + 1)}/{TOTAL}
+                  </span>
+                  <span className="truncate text-xs font-semibold text-forest-900">
+                    {STEPS[active].title}
+                  </span>
+                  <span className="ml-auto h-1 w-14 shrink-0 overflow-hidden rounded-full bg-forest-100">
+                    <motion.span
+                      className="block h-full origin-left rounded-full bg-forest-700"
+                      style={{ scaleX: progress }}
+                      aria-hidden="true"
+                    />
+                  </span>
+                </motion.div>
+              )}
+            </AnimatePresence>
           </div>
 
           <ol ref={listRef} className="relative">
