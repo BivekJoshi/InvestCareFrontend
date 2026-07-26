@@ -3,14 +3,21 @@
 import { useEffect, useState } from 'react';
 import { motion, useMotionValue, useSpring } from 'framer-motion';
 
+import { useTheme } from '@/theme/ThemeProvider';
+
 /**
  * Trailing ring cursor for fine-pointer devices. It never replaces the native
  * cursor (which stays visible for accessibility) — it just adds a soft ring
  * that grows over interactive elements.
+ *
+ * Device capability comes from the theme context, so this component doesn't
+ * run its own `matchMedia` bookkeeping.
  */
 export default function CustomCursor() {
-  const [enabled, setEnabled] = useState(false);
+  const { hasFinePointer, prefersReducedMotion, motion: motionTokens } = useTheme();
   const [active, setActive] = useState(false);
+
+  const enabled = hasFinePointer && !prefersReducedMotion;
 
   const x = useMotionValue(-100);
   const y = useMotionValue(-100);
@@ -18,11 +25,7 @@ export default function CustomCursor() {
   const ringY = useSpring(y, { stiffness: 280, damping: 26, mass: 0.4 });
 
   useEffect(() => {
-    const fine = window.matchMedia('(pointer: fine)').matches;
-    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if (!fine || reduced) return;
-
-    setEnabled(true);
+    if (!enabled) return undefined;
 
     const move = (event) => {
       x.set(event.clientX);
@@ -36,7 +39,7 @@ export default function CustomCursor() {
 
     window.addEventListener('pointermove', move, { passive: true });
     return () => window.removeEventListener('pointermove', move);
-  }, [x, y]);
+  }, [enabled, x, y]);
 
   if (!enabled) return null;
 
@@ -56,7 +59,7 @@ export default function CustomCursor() {
           height: active ? 46 : 28,
           opacity: active ? 0.9 : 0.45,
         }}
-        transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
+        transition={{ duration: motionTokens.duration.fast, ease: motionTokens.ease }}
       />
     </>
   );

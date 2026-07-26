@@ -13,6 +13,8 @@ import {
 import { useReducedMotion } from 'framer-motion';
 import * as THREE from 'three';
 
+import { scene as sceneColors } from '@/theme';
+
 /**
  * Ambient hero scene — an abstract stand-in for diversified, compounding
  * capital: a faceted core inside a wireframe shell, six orbiting nodes (one per
@@ -31,9 +33,9 @@ export default function HeroScene({ className = '' }) {
         frameloop={reduceMotion ? 'demand' : 'always'}
       >
         <ambientLight intensity={0.55} />
-        <directionalLight position={[4, 5, 5]} intensity={1.7} color="#e8f5ec" />
-        <pointLight position={[-6, -3, -4]} intensity={2.6} color="#c9a227" />
-        <pointLight position={[5, 4, -6]} intensity={1.4} color="#57a479" />
+        <directionalLight position={[4, 5, 5]} intensity={1.7} color={sceneColors.light.key} />
+        <pointLight position={[-6, -3, -4]} intensity={2.6} color={sceneColors.light.warm} />
+        <pointLight position={[5, 4, -6]} intensity={1.4} color={sceneColors.light.cool} />
 
         <ParallaxRig enabled={!reduceMotion}>
           <Float speed={1.15} rotationIntensity={0.45} floatIntensity={0.65}>
@@ -45,7 +47,7 @@ export default function HeroScene({ className = '' }) {
           ))}
 
           <ParticleField />
-          <Sparkles count={60} scale={9} size={2.6} speed={0.3} color="#e2c76b" opacity={0.6} />
+          <Sparkles count={60} scale={9} size={2.6} speed={0.3} color={sceneColors.node} opacity={0.6} />
         </ParallaxRig>
       </Canvas>
     </div>
@@ -94,15 +96,15 @@ function Core() {
   return (
     <group>
       <Icosahedron ref={solid} args={[1.45, 1]}>
-        <meshStandardMaterial color="#17563a" roughness={0.32} metalness={0.6} flatShading />
+        <meshStandardMaterial color={sceneColors.core} roughness={0.32} metalness={0.6} flatShading />
       </Icosahedron>
 
       <Icosahedron ref={shell} args={[1.85, 1]}>
-        <meshBasicMaterial color="#57a479" wireframe transparent opacity={0.34} />
+        <meshBasicMaterial color={sceneColors.shell} wireframe transparent opacity={0.34} />
       </Icosahedron>
 
       <Icosahedron ref={halo} args={[2.25, 2]}>
-        <meshBasicMaterial color="#c9a227" wireframe transparent opacity={0.09} />
+        <meshBasicMaterial color={sceneColors.halo} wireframe transparent opacity={0.09} />
       </Icosahedron>
     </group>
   );
@@ -124,7 +126,7 @@ function Orbit({ radius, tilt, speed, nodes, opacity }) {
   return (
     <group ref={ref} rotation={tilt}>
       <Torus args={[radius, 0.011, 12, 140]}>
-        <meshBasicMaterial color="#c9a227" transparent opacity={opacity} />
+        <meshBasicMaterial color={sceneColors.orbit} transparent opacity={opacity} />
       </Torus>
 
       {nodeAngles.map((angle) => (
@@ -133,7 +135,7 @@ function Orbit({ radius, tilt, speed, nodes, opacity }) {
           position={[Math.cos(angle) * radius, Math.sin(angle) * radius, 0]}
         >
           <sphereGeometry args={[0.062, 16, 16]} />
-          <meshBasicMaterial color="#e2c76b" />
+          <meshBasicMaterial color={sceneColors.node} />
         </mesh>
       ))}
     </group>
@@ -165,7 +167,7 @@ function ParticleField({ count = 1100 }) {
     <Points ref={ref} positions={positions} stride={3} frustumCulled={false}>
       <PointMaterial
         transparent
-        color="#8bc4a2"
+        color={sceneColors.particles}
         size={0.032}
         sizeAttenuation
         depthWrite={false}

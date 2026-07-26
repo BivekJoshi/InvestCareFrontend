@@ -1,8 +1,14 @@
 /**
  * Shared framer-motion variants so animation timing stays consistent site-wide.
+ * The curve and durations themselves live in the design system (`@/theme`);
+ * this module only composes them into reusable variants.
  */
 
-export const EASE = [0.22, 1, 0.36, 1];
+import { motion as motionTokens } from '@/theme';
+
+export const EASE = motionTokens.ease;
+export const DURATION = motionTokens.duration;
+export const STAGGER = motionTokens.stagger;
 
 export const fadeUp = {
   hidden: { opacity: 0, y: 24 },

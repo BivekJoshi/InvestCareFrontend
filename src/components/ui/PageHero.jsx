@@ -4,11 +4,14 @@ import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { ChevronRight } from 'lucide-react';
 import { EASE } from '@/lib/motion';
+import { surface } from '@/theme';
 
 /**
  * Shared masthead for every inner page: breadcrumb, eyebrow, title and lead.
  */
 export default function PageHero({ eyebrow, title, lead, breadcrumb = [] }) {
+  const palette = surface('deep');
+
   return (
     <section className="relative overflow-hidden bg-forest-950 pb-20 pt-36 text-cream md:pb-28 md:pt-44">
       <div className="absolute inset-0 bg-grid-forest bg-[size:64px_64px] opacity-30" aria-hidden="true" />
@@ -27,7 +30,7 @@ export default function PageHero({ eyebrow, title, lead, breadcrumb = [] }) {
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, ease: EASE }}
-          className="flex flex-wrap items-center gap-1.5 text-xs text-forest-200/60"
+          className={`flex flex-wrap items-center gap-1.5 text-xs ${palette.muted}`}
         >
           <Link href="/" className="transition-colors hover:text-white">
             Home
@@ -52,7 +55,7 @@ export default function PageHero({ eyebrow, title, lead, breadcrumb = [] }) {
         ) : null}
 
         <motion.h1
-          className="mt-6 max-w-4xl text-4xl font-bold leading-[1.05] text-balance text-white sm:text-5xl md:text-6xl"
+          className={`mt-6 max-w-4xl text-balance text-4xl font-bold leading-[1.05] sm:text-5xl md:text-6xl ${palette.heading}`}
           initial={{ opacity: 0, y: 18 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.14, ease: EASE }}
@@ -62,7 +65,7 @@ export default function PageHero({ eyebrow, title, lead, breadcrumb = [] }) {
 
         {lead ? (
           <motion.p
-            className="mt-6 max-w-2xl text-base leading-relaxed text-forest-100/75 md:text-lg"
+            className={`mt-6 max-w-2xl text-base leading-relaxed md:text-lg ${palette.body}`}
             initial={{ opacity: 0, y: 18 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.22, ease: EASE }}

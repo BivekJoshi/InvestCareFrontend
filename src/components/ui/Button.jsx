@@ -1,29 +1,13 @@
 import Link from 'next/link';
 import { ArrowRight } from 'lucide-react';
+
 import { cn } from '@/lib/utils';
-
-const BASE =
-  'group inline-flex items-center justify-center gap-2 rounded-full text-sm font-semibold ' +
-  'transition-all duration-300 focus-visible:outline focus-visible:outline-2 ' +
-  'focus-visible:outline-offset-2 focus-visible:outline-gold-500 disabled:opacity-60';
-
-const VARIANTS = {
-  primary:
-    'bg-forest-800 text-cream hover:bg-forest-700 shadow-card hover:shadow-lift hover:-translate-y-0.5',
-  gold: 'bg-gold-500 text-forest-950 hover:bg-gold-400 shadow-card hover:shadow-lift hover:-translate-y-0.5',
-  outline:
-    'border border-forest-300 text-forest-800 hover:border-forest-700 hover:bg-forest-50',
-  ghostLight:
-    'border border-white/25 text-cream hover:border-white/60 hover:bg-white/10 backdrop-blur-sm',
-};
-
-const SIZES = {
-  sm: 'px-5 py-2.5',
-  md: 'px-7 py-3.5',
-};
+import { button as buttonTheme } from '@/theme';
 
 /**
  * Renders a `next/link` when `href` is supplied, otherwise a native button.
+ * Variant and size recipes live in `@/theme` so buttons rendered by hand
+ * elsewhere can reuse the exact same classes.
  */
 export default function Button({
   href,
@@ -34,7 +18,12 @@ export default function Button({
   className = '',
   ...props
 }) {
-  const classes = cn(BASE, VARIANTS[variant], SIZES[size], className);
+  const classes = cn(
+    buttonTheme.base,
+    buttonTheme.variants[variant] ?? buttonTheme.variants.primary,
+    buttonTheme.sizes[size] ?? buttonTheme.sizes.md,
+    className,
+  );
 
   const content = (
     <>

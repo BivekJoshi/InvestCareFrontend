@@ -5,9 +5,10 @@ import Navbar from '@/components/layout/Navbar';
 import Footer from '@/components/layout/Footer';
 import Preloader from '@/components/layout/Preloader';
 import ScrollProgress from '@/components/layout/ScrollProgress';
-import MotionProvider from '@/components/layout/MotionProvider';
+import ThemeProvider from '@/theme/ThemeProvider';
 import CustomCursor from '@/components/layout/CustomCursor';
 import { company } from '@/data/company';
+import { brand } from '@/theme';
 
 const sans = Inter({
   subsets: ['latin'],
@@ -54,7 +55,7 @@ export const metadata = {
 };
 
 export const viewport = {
-  themeColor: '#0f4029',
+  themeColor: brand.themeColor,
   width: 'device-width',
   initialScale: 1,
 };
@@ -63,7 +64,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en" className={`${sans.variable} ${display.variable}`}>
       <body className="flex min-h-screen flex-col">
-        <MotionProvider>
+        <ThemeProvider>
           <Preloader />
           <ScrollProgress />
           <CustomCursor />
@@ -79,7 +80,7 @@ export default function RootLayout({ children }) {
             {children}
           </main>
           <Footer />
-        </MotionProvider>
+        </ThemeProvider>
       </body>
     </html>
   );

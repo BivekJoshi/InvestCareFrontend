@@ -1,4 +1,4 @@
-import Hero from '@/components/sections/Hero';
+import Hero from '@/components/sections/hero';
 import TickerBand from '@/components/sections/TickerBand';
 import BentoOverview from '@/components/sections/BentoOverview';
 import StatsBand from '@/components/sections/StatsBand';

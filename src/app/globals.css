@@ -4,7 +4,8 @@
 
 @layer base {
   :root {
-    --header-height: 4.5rem;
+    /* Mirrors `layout.headerHeight` in src/theme/tokens.cjs. */
+    --header-height: theme('spacing.header');
   }
 
   html {
@@ -48,12 +49,12 @@
 @layer components {
   .eyebrow {
     @apply inline-flex items-center rounded-full border border-forest-200 bg-forest-50 px-4 py-1.5
-           text-[11px] font-semibold uppercase tracking-[0.18em] text-forest-600;
+           text-[11px] font-semibold uppercase tracking-eyebrow text-forest-600;
   }
 
   .eyebrow-invert {
     @apply inline-flex items-center rounded-full border border-white/15 bg-white/10 px-4 py-1.5
-           text-[11px] font-semibold uppercase tracking-[0.18em] text-forest-100;
+           text-[11px] font-semibold uppercase tracking-eyebrow text-forest-100;
   }
 
   .surface-card {
@@ -84,7 +85,12 @@
 
   /* Gold-to-cream sweep for display headings. */
   .text-gradient-gold {
-    background-image: linear-gradient(100deg, #e2c76b 0%, #c9a227 45%, #f3e6bd 100%);
+    background-image: linear-gradient(
+      100deg,
+      theme('colors.gold.300') 0%,
+      theme('colors.gold.500') 45%,
+      #f3e6bd 100%
+    );
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
@@ -93,7 +99,12 @@
   /* Starts mid-green so an accented word reads as accented across its whole
      width — a near-black start looks like a rendering fault next to body copy. */
   .text-gradient-forest {
-    background-image: linear-gradient(100deg, #1f6b46 0%, #33865a 55%, #57a479 100%);
+    background-image: linear-gradient(
+      100deg,
+      theme('colors.forest.600') 0%,
+      theme('colors.forest.500') 55%,
+      theme('colors.forest.400') 100%
+    );
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
@@ -128,10 +139,10 @@
   width: 10px;
 }
 ::-webkit-scrollbar-track {
-  background: #f0f7f2;
+  background: theme('colors.forest.50');
 }
 ::-webkit-scrollbar-thumb {
-  background: #17563a;
+  background: theme('colors.forest.700');
   border-radius: 999px;
-  border: 3px solid #f0f7f2;
+  border: 3px solid theme('colors.forest.50');
 }

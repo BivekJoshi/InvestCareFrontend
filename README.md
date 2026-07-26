@@ -47,7 +47,7 @@ Every route is statically prerendered.
 
 | # | Section | What makes it move |
 | --- | --- | --- |
-| 1 | `Hero` | WebGL scene, line-masked headline, magnetic CTAs, counting stat bar, floating holding cards, scroll-linked parallax fade |
+| 1 | `hero/` | WebGL scene, pointer spotlight, line-masked headline, magnetic CTAs, live promoter-round panel with progress bar, counting metrics band, scroll-linked parallax fade |
 | 2 | `TickerBand` | Two counter-scrolling CSS marquees (sectors / company facts), paused on hover |
 | 3 | `BentoOverview` | Asymmetric bento grid; cursor-tracking spotlight cards; word-by-word heading reveal |
 | 4 | `StatsBand` | Four figures counting up on entry over a drifting aurora, with a line that draws across the band |
@@ -86,13 +86,16 @@ src/
 │   └── <route>/page.jsx
 ├── components/
 │   ├── layout/           # Navbar, Footer, Logo, Preloader, ScrollProgress,
-│   │                     #   MotionProvider, CustomCursor
+│   │                     #   CustomCursor
 │   ├── sections/         # Page sections — each is self-contained and reusable
+│   │   └── hero/         # The fold, split into content + backdrop + intro +
+│   │                     #   raise panel + metrics band
 │   ├── three/            # WebGL hero scene (+ lazy, client-only wrapper)
 │   └── ui/               # Primitives: Section, SectionHeading, Button, Reveal,
 │                         #   MediaFrame, AllocationDonut, Counter, PageHero,
 │                         #   Aurora, Marquee, TextReveal, Magnetic, SpotlightCard
 ├── data/                 # All copy and figures from the business profile
+├── theme/                # Design system: tokens, semantic surfaces, provider
 └── lib/                  # Motion variants, className + contrast helpers
 ```
 
@@ -143,6 +146,14 @@ handler (`src/app/api/contact/route.js`) backed by Resend, SendGrid or SMTP.
 
 ## Design system
 
+`src/theme/` is the single source of truth, in three layers:
+
+| Layer | File | Contains |
+| --- | --- | --- |
+| Tokens | `theme/tokens.cjs` | Raw values: colour ramps, fonts, tracking, shadows, motion curves/durations, layout metrics. CommonJS so `tailwind.config.js` can `require()` it — Tailwind and the app are generated from the same object |
+| Semantics | `theme/theme.js` | What values are *for*: `surfaces` (tone → background + heading/body/muted foregrounds), `button` variants and sizes, `scene` colours for the WebGL hero, `brand` |
+| Runtime | `theme/ThemeProvider.jsx` | `useTheme()` — the theme plus live `prefersReducedMotion` / `hasFinePointer` flags, resolved once instead of in every component. Also applies framer-motion's `reducedMotion="user"` |
+
 | Token | Value | Use |
 | --- | --- | --- |
 | `forest-950 … forest-50` | `#051a11` → `#f0f7f2` | Primary brand green |
@@ -151,15 +162,22 @@ handler (`src/app/api/contact/route.js`) backed by Resend, SendGrid or SMTP.
 | `font-display` | Fraunces | Headings |
 | `font-sans` | Inter | Body |
 
-Section rhythm, tone and container width are handled by
-`<Section tone="light | white | tint | dark | deep">`; headings by
-`<SectionHeading eyebrow title lead invert />`.
+Rules of thumb:
+
+- Server components import `@/theme` (no client boundary); client components
+  that need the runtime flags import `@/theme/ThemeProvider`.
+- Nothing outside `theme/` should hardcode a hex value — including CSS, which
+  reaches tokens through Tailwind's `theme()` function.
+- Section rhythm, tone and container width are handled by
+  `<Section tone="light | white | tint | dark | deep">`; headings by
+  `<SectionHeading eyebrow title lead tone />`.
 
 ## Motion
 
-- Shared variants live in `src/lib/motion.js` — use `<Reveal>` /
-  `<RevealGroup>` + `<RevealItem>` rather than hand-rolling `whileInView`.
-- `MotionProvider` sets `reducedMotion="user"`, so the OS "reduce motion"
+- Shared variants live in `src/lib/motion.js`, built from the theme's motion
+  tokens — use `<Reveal>` / `<RevealGroup>` + `<RevealItem>` rather than
+  hand-rolling `whileInView`.
+- `ThemeProvider` sets `reducedMotion="user"`, so the OS "reduce motion"
   setting suppresses transform animations site-wide; `globals.css` does the same
   for CSS animations, and the preloader skips itself entirely.
 - The WebGL hero is code-split and client-only

@@ -86,10 +86,12 @@ export const capital = {
     { label: 'Additional Paid-Up Capital', value: 'NPR 28.16 Cr' },
   ],
   buildUpTotal: { label: 'Total Promoter Capital', value: 'NPR 38.16 Cr' },
+  // `amount` is the same figure in NPR crore, kept alongside the display string
+  // so charts and progress bars never have to parse the label.
   ask: {
-    current: { label: 'Current Paid-Up Capital', value: 'NPR 10.00 Cr' },
-    additional: { label: 'Additional Capital Sought', value: 'NPR 28.16 Cr' },
-    target: { label: 'Target Promoter Capital', value: 'NPR 38.16 Cr' },
+    current: { label: 'Current Paid-Up Capital', value: 'NPR 10.00 Cr', amount: 10 },
+    additional: { label: 'Additional Capital Sought', value: 'NPR 28.16 Cr', amount: 28.16 },
+    target: { label: 'Target Promoter Capital', value: 'NPR 38.16 Cr', amount: 38.16 },
     note: 'Followed by an IPO Provision of NPR 12.72 Cr (25% of issued capital) to open the company to public shareholders.',
   },
 };
