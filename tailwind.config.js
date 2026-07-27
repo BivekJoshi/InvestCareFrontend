@@ -38,6 +38,10 @@ module.exports = {
           from: { opacity: 0, transform: 'translateY(12px)' },
           to: { opacity: 1, transform: 'translateY(0)' },
         },
+        'fade-in': {
+          from: { opacity: 0 },
+          to: { opacity: 1 },
+        },
         marquee: {
           from: { transform: 'translateX(0)' },
           to: { transform: 'translateX(-50%)' },
@@ -70,6 +74,8 @@ module.exports = {
       animation: {
         shimmer: 'shimmer 2s infinite',
         'fade-up': `fade-up .6s ${motion.easeCss} both`,
+        /* Held back so a fast navigation never flashes a loading state. */
+        'fade-in-delayed': `fade-in .4s ${motion.easeCss} .2s both`,
         marquee: 'marquee var(--marquee-duration, 38s) linear infinite',
         'marquee-reverse': 'marquee-reverse var(--marquee-duration, 38s) linear infinite',
         aurora: 'aurora var(--aurora-duration, 18s) ease-in-out infinite',
