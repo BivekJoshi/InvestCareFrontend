@@ -19,7 +19,7 @@ export default function Footer() {
       <div className="container relative py-16 md:py-20">
         <div className="grid gap-12 lg:grid-cols-[1.4fr_2fr]">
           <div>
-            <Logo invert />
+            <Logo invert className="h-14" />
             <p className="mt-6 max-w-sm text-sm leading-relaxed text-forest-200/75">
               {company.intro.split('.')[0]}.
             </p>

@@ -50,6 +50,14 @@ export const metadata = {
     'Nepal private equity',
     'promoter capital',
   ],
+  // Every brand asset is served straight from /public — no bundler imports.
+  icons: {
+    icon: [
+      { url: '/images/brand/investcareicon.svg', type: 'image/svg+xml' },
+    ],
+    shortcut: '/images/brand/investcareicon.svg',
+    apple: '/images/brand/investcareicon.svg',
+  },
   openGraph: {
     title: `${company.name} — ${company.tagline}`,
     description:
@@ -57,10 +65,19 @@ export const metadata = {
     type: 'website',
     locale: 'en_US',
     siteName: company.name,
+    images: [
+      {
+        url: '/images/brand/investcarehorizontal.png',
+        width: 1000,
+        height: 369,
+        alt: `${company.name} logo`,
+      },
+    ],
   },
   twitter: {
     card: 'summary_large_image',
     title: `${company.name} — ${company.tagline}`,
+    images: ['/images/brand/investcarehorizontal.png'],
   },
   robots: { index: true, follow: true },
 };

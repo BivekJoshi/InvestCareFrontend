@@ -3,19 +3,38 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, LayoutGroup, motion } from "framer-motion";
 import { Menu, X } from "lucide-react";
 
-import Logo from "../../../public/images/brand/investcarehorizontal.png";
+import Logo from "@/components/layout/Logo";
 import Button from "@/components/ui/Button";
 import { navLinks } from "@/data/navigation";
 import { EASE } from "@/lib/motion";
 import { cn } from "@/lib/utils";
 
+/**
+ * Exact match for the root, prefix match for everything else — but only on a
+ * segment boundary, so `/invest` never lights up for a future `/investors`.
+ */
+function matches(href, pathname) {
+  if (href === "/") return pathname === "/";
+  return pathname === href || pathname.startsWith(`${href}/`);
+}
+
 export default function Navbar() {
   const pathname = usePathname();
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
+
+  /**
+   * App Router navigations resolve on the server, so `pathname` only flips once
+   * the new route commits — long enough on a heavy page to read as "the nav
+   * isn't responding". Holding the clicked href moves the indicator on click
+   * and hands control back to the real pathname the moment it lands.
+   */
+  const [pendingHref, setPendingHref] = useState(null);
+  const activePath = pendingHref ?? pathname;
+  const isActive = (href) => matches(href, activePath);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 16);
@@ -24,8 +43,11 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  // Close the drawer on route change and lock body scroll while it is open.
-  useEffect(() => setOpen(false), [pathname]);
+  // Close the drawer + drop the optimistic target once the route settles.
+  useEffect(() => {
+    setOpen(false);
+    setPendingHref(null);
+  }, [pathname]);
 
   useEffect(() => {
     document.body.style.overflow = open ? "hidden" : "";
@@ -40,9 +62,6 @@ export default function Navbar() {
     return () => window.removeEventListener("keydown", onKey);
   }, []);
 
-  const isActive = (href) =>
-    href === "/" ? pathname === "/" : pathname.startsWith(href);
-
   // Every page opens on a dark forest hero, so the header sits inverted until
   // the visitor scrolls it onto the cream page body.
   const onDark = !scrolled && !open;
@@ -52,8 +71,8 @@ export default function Navbar() {
       className={cn(
         "fixed inset-x-0 top-0 z-50 transition-all duration-500",
         onDark
-          ? "border-b border-transparent py-4"
-          : "border-b border-forest-100 bg-cream/85 py-2 backdrop-blur-xl",
+          ? "border-b border-transparent py-3"
+          : "border-b border-forest-100 bg-cream/85 py-0 shadow-[0_1px_20px_-12px_rgba(5,26,17,0.35)] backdrop-blur-xl",
       )}
       style={{ minHeight: "var(--header-height)" }}
     >
@@ -61,40 +80,75 @@ export default function Navbar() {
         className="container flex items-center justify-between gap-6"
         aria-label="Primary"
       >
-        <img src={Logo}/>
+        {/* White colourway over the dark hero, forest once scrolled. */}
+        <Logo
+          invert={onDark}
+          priority
+          className={cn(
+            "transition-[height] duration-500",
+            onDark ? "h-20 sm:h-24" : "h-14 sm:h-16",
+          )}
+        />
 
-        <ul className="hidden items-center gap-1 lg:flex">
-          {navLinks.map((link) => (
-            <li key={link.href}>
-              <Link
-                href={link.href}
-                className={cn(
-                  "relative rounded-full px-4 py-2 text-sm font-medium transition-colors",
-                  onDark
-                    ? isActive(link.href)
-                      ? "text-white"
-                      : "text-forest-100/70 hover:text-white"
-                    : isActive(link.href)
-                      ? "text-forest-900"
-                      : "text-forest-700/70 hover:text-forest-900",
-                )}
-                aria-current={isActive(link.href) ? "page" : undefined}
-              >
-                {isActive(link.href) ? (
-                  <motion.span
-                    layoutId="nav-pill"
+        <LayoutGroup id="primary-nav">
+          <ul
+            className={cn(
+              "hidden items-center gap-1 rounded-full p-1 transition-colors duration-500 lg:flex",
+              onDark
+                ? "border border-white/10 bg-white/[0.06] backdrop-blur-md"
+                : "border border-forest-100 bg-forest-50/70",
+            )}
+          >
+            {navLinks.map((link) => {
+              const active = isActive(link.href);
+
+              return (
+                <li key={link.href}>
+                  <Link
+                    href={link.href}
+                    onClick={() => setPendingHref(link.href)}
                     className={cn(
-                      "absolute inset-0 -z-10 rounded-full",
-                      onDark ? "bg-white/10" : "bg-forest-100",
+                      "relative block rounded-full px-4 py-2 text-sm font-medium transition-colors duration-300",
+                      onDark
+                        ? active
+                          ? "text-forest-950"
+                          : "text-cream/70 hover:text-white"
+                        : active
+                          ? "text-cream"
+                          : "text-forest-700 hover:text-forest-950",
                     )}
-                    transition={{ duration: 0.4, ease: EASE }}
-                  />
-                ) : null}
-                {link.label}
-              </Link>
-            </li>
-          ))}
-        </ul>
+                    aria-current={active ? "page" : undefined}
+                  >
+                    {active ? (
+                      <motion.span
+                        layoutId="nav-pill"
+                        initial={false}
+                        className={cn(
+                          "absolute inset-0 rounded-full transition-colors duration-500",
+                          onDark
+                            ? "bg-cream shadow-[0_6px_18px_-8px_rgba(0,0,0,0.6)]"
+                            : "bg-forest-800 shadow-[0_6px_18px_-10px_rgba(5,26,17,0.9)]",
+                        )}
+                        transition={{
+                          type: "spring",
+                          stiffness: 420,
+                          damping: 34,
+                        }}
+                      >
+                        {/* Gold cue rides along with the pill. */}
+                        <span className="absolute inset-x-4 bottom-1 h-px rounded-full bg-gold-500" />
+                      </motion.span>
+                    ) : null}
+                    {/* Sits above the pill — the pill itself must stay a
+                        positioned sibling so the `<ul>` background can't
+                        paint over it. */}
+                    <span className="relative z-10">{link.label}</span>
+                  </Link>
+                </li>
+              );
+            })}
+          </ul>
+        </LayoutGroup>
 
         <div className="flex items-center gap-3">
           <Button
@@ -135,35 +189,47 @@ export default function Navbar() {
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.35, ease: EASE }}
           >
-            <div className="container mt-4 overflow-hidden rounded-2xl border border-forest-100 bg-white p-3 shadow-lift">
-              <ul className="flex flex-col">
-                {navLinks.map((link, i) => (
-                  <motion.li
-                    key={link.href}
-                    initial={{ opacity: 0, x: -12 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: 0.05 * i, duration: 0.35, ease: EASE }}
-                  >
-                    <Link
-                      href={link.href}
-                      className={cn(
-                        "block rounded-xl px-4 py-3 text-base font-medium transition-colors",
-                        isActive(link.href)
-                          ? "bg-forest-50 text-forest-900"
-                          : "text-forest-700 hover:bg-forest-50",
-                      )}
+            <div className="container mb-4 mt-4 overflow-hidden rounded-2xl border border-forest-100 bg-white p-3 shadow-lift">
+              <ul className="flex flex-col gap-1">
+                {navLinks.map((link, i) => {
+                  const active = isActive(link.href);
+
+                  return (
+                    <motion.li
+                      key={link.href}
+                      initial={{ opacity: 0, x: -12 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{
+                        delay: 0.05 * i,
+                        duration: 0.35,
+                        ease: EASE,
+                      }}
                     >
-                      {link.label}
-                    </Link>
-                  </motion.li>
-                ))}
+                      <Link
+                        href={link.href}
+                        onClick={() => setPendingHref(link.href)}
+                        aria-current={active ? "page" : undefined}
+                        className={cn(
+                          "relative flex items-center justify-between rounded-xl px-4 py-3 text-base font-medium transition-colors",
+                          active
+                            ? "bg-forest-800 text-cream"
+                            : "text-forest-700 hover:bg-forest-50",
+                        )}
+                      >
+                        {active ? (
+                          <span className="absolute inset-y-2 left-0 w-1 rounded-full bg-gold-500" />
+                        ) : null}
+                        {link.label}
+                        {active ? (
+                          <span className="h-1.5 w-1.5 rounded-full bg-gold-400" />
+                        ) : null}
+                      </Link>
+                    </motion.li>
+                  );
+                })}
               </ul>
 
-              <Button
-                href="/invest"
-                className="mt-3 w-full sm:hidden"
-                withArrow
-              >
+              <Button href="/invest" className="mt-3 w-full sm:hidden" withArrow>
                 Invest With Us
               </Button>
             </div>
