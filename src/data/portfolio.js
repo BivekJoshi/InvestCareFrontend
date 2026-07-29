@@ -24,7 +24,7 @@ export const portfolio = [
       "Restaurant, bar, banquet and conference facilities",
       "6-property brand network",
     ],
-    image: null, // drop the file in and set to: '/images/portfolio/sankalpa-hospitality.jpg'
+    image: "/images/portfolio/Landmark.png", // drop the file in and set to: '/images/portfolio/sankalpa-hospitality.jpg'
     imageHint: "Hotel exterior or lobby — landscape, 1600×1000",
   },
   {
