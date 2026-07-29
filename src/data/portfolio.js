@@ -44,7 +44,7 @@ export const portfolio = [
       'Published rates US$ 120-250 per night',
       'Spa, trekking and event venue',
     ],
-    image: null, // drop the file in and set to: '/images/portfolio/diamond-hill-resort.jpg'
+    image: '/images/portfolio/DiamondHillResort.png', // drop the file in and set to: '/images/portfolio/diamond-hill-resort.jpg'
     imageHint: 'Resort grounds / valley view — landscape, 1600×1000',
   },
   {
