@@ -83,7 +83,7 @@ export default function BentoOverview() {
           <div className="relative h-full overflow-hidden rounded-3xl">
             <MediaFrame
               /* set to "/images/company/kathmandu-skyline.jpg" once the asset exists */
-              src={null}
+              src={"/images/brand/investcare-vertical-white-on-green.jpg"}
               alt="Invest Care Limited — Kathmandu operations"
               hint="/images/company/kathmandu-skyline.jpg — landscape, 1600×1200"
               ratio="landscape"
