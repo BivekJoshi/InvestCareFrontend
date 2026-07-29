@@ -8,7 +8,7 @@ const FACTS = [
   'SEBON-compliant roadmap',
   'IPO application · Magh 2083',
   '5 active holdings',
-  'Reg. 175982/074/075',
+  // 'Reg. 175982/074/075',
 ];
 
 /**

@@ -27,7 +27,7 @@ export default function HomePage() {
       <CapitalJourney />
       <SectorAllocation tone="light" />
       <PortfolioShowcase />
-      <GlobalStrip />
+      {/* <GlobalStrip /> */}
       <LeadershipStrip />
       <WhyInvest />
       <QuoteParallax />

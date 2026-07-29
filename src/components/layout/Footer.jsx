@@ -89,8 +89,8 @@ export default function Footer() {
             <Link href="/disclaimer" className="transition-colors hover:text-white">
               Disclaimer
             </Link>
-            <span>Reg. No. 175982/074/075</span>
-            <span>PAN 606875855</span>
+            {/* <span>Reg. No. 175982/074/075</span>
+            <span>PAN 606875855</span> */}
           </div>
         </div>
       </div>

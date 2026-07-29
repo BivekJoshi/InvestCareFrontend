@@ -41,7 +41,7 @@ export default function HeroRaisePanel() {
         </figcaption>
 
         <p className="mt-5 font-display text-[2.5rem] font-bold leading-none text-white">
-          <Counter to={heroRaise.target.amount} decimals={2} prefix="NPR " suffix=" Cr" />
+          <Counter to={heroRaise.target.amount} suffix=" Units" />
         </p>
         <p className="mt-2 text-sm text-forest-200/65">{heroRaise.target.label}</p>
 
@@ -84,7 +84,7 @@ function ProgressBar({ percent }) {
       </div>
       <div className="mt-2 flex justify-between text-[10px] uppercase tracking-label text-forest-200/50">
         <span>{percent}% paid up</span>
-        <span>Target {heroRaise.target.value.replace('NPR ', '')}</span>
+        <span>Target {heroRaise.target.value}</span>
       </div>
     </div>
   );
