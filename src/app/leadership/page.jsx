@@ -1,7 +1,6 @@
 import PageHero from '@/components/ui/PageHero';
 import Section from '@/components/ui/Section';
-import MediaFrame from '@/components/ui/MediaFrame';
-import { RevealGroup, RevealItem } from '@/components/ui/Reveal';
+import BoardDirectory from '@/components/sections/BoardDirectory';
 import InvestorCommitment from '@/components/sections/InvestorCommitment';
 import CallToAction from '@/components/sections/CallToAction';
 import { board } from '@/data/board';
@@ -23,13 +22,7 @@ export default function LeadershipPage() {
       />
 
       <Section tone="light">
-        <RevealGroup className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3" staggerChildren={0.08}>
-          {board.map((member) => (
-            <RevealItem key={member.slug} className="h-full">
-              <DirectorCard member={member} />
-            </RevealItem>
-          ))}
-        </RevealGroup>
+        <BoardDirectory members={board} />
       </Section>
 
       <InvestorCommitment tone="white" />
@@ -40,32 +33,5 @@ export default function LeadershipPage() {
         secondary={{ href: '/invest', label: 'The Opportunity' }}
       />
     </>
-  );
-}
-
-function DirectorCard({ member }) {
-  return (
-    <article className="group flex h-full flex-col overflow-hidden rounded-2xl border border-forest-100 bg-white shadow-card transition duration-300 hover:-translate-y-1.5 hover:shadow-lift">
-      <MediaFrame
-        src={member.image}
-        alt={member.name}
-        hint="/images/board/[slug].jpg — 800×1000, plain background"
-        ratio="portrait"
-        className="rounded-none"
-        imageClassName="group-hover:scale-105"
-        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-      />
-
-      <div className="flex flex-1 flex-col p-7">
-        <h2 className="font-display text-lg font-semibold leading-snug text-forest-900">
-          {member.name}
-        </h2>
-        <p className="mt-1.5 text-[11px] font-semibold uppercase tracking-[0.16em] text-gold-600">
-          {member.role}
-        </p>
-        <p className="mt-4 text-xs font-semibold text-forest-700">{member.credentials}</p>
-        <p className="mt-3 flex-1 text-sm leading-relaxed text-forest-800/70">{member.bio}</p>
-      </div>
-    </article>
   );
 }

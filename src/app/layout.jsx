@@ -1,4 +1,4 @@
-import { Inter, Fraunces, Great_Vibes } from 'next/font/google';
+import { Inter, Fraunces, Dancing_Script } from 'next/font/google';
 import './globals.css';
 
 import Navbar from '@/components/layout/Navbar';
@@ -27,10 +27,10 @@ const display = Fraunces({
  * Flourish face. Used for eyebrows, taglines and accented words only — never
  * for body copy or figures, where a formal script costs too much legibility.
  */
-const script = Great_Vibes({
+const script = Dancing_Script({
   subsets: ['latin'],
   display: 'swap',
-  weight: ['400'],
+  weight: ['400', '500', '600', '700'],
   variable: '--font-script',
 });
 
@@ -53,10 +53,10 @@ export const metadata = {
   // Every brand asset is served straight from /public — no bundler imports.
   icons: {
     icon: [
-      { url: '/images/brand/investcareicon.svg', type: 'image/svg+xml' },
+      { url: '/images/brand/investcareapplogo.svg', type: 'image/svg+xml' },
     ],
-    shortcut: '/images/brand/investcareicon.svg',
-    apple: '/images/brand/investcareicon.svg',
+    shortcut: '/images/brand/investcareapplogo.svg',
+    apple: '/images/brand/investcareapplogo.svg',
   },
   openGraph: {
     title: `${company.name} — ${company.tagline}`,
