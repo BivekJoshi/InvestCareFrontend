@@ -6,7 +6,7 @@ export const sectors = [
   {
     slug: 'hospitality-tourism',
     name: 'Hospitality & Tourism',
-    share: 40,
+    share: 30,
     icon: 'hotel',
     color: '#1f6b46',
     body: "Landmark Kathmandu (Sankalpa Hospitality) and Diamond Hill Resort, positioned to capture Nepal's 1M+ annual visitor economy.",
@@ -45,8 +45,8 @@ export const sectors = [
   },
   {
     slug: 'hydropower',
-    name: 'Hydropower',
-    share: 10,
+    name: 'Energy Sector',
+    share: 20,
     icon: 'zap',
     color: '#d4b04a',
     body: "Equity in Dobhan Khola Hydropower, tapping Nepal's 83,000 MW potential and energy export ambitions.",
