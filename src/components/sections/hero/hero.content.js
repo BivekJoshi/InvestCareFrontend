@@ -55,27 +55,46 @@ export const heroTrust = [
   { icon: 'calendar', label: `Incorporated ${detail('Incorporated').slice(0, 4)} BS` },
 ];
 
-/** Drives the promoter-round card on the right of the fold. */
-export const heroRaise = {
-  eyebrow: 'Promoter capital round',
-  status: 'Open',
-  target: capital.ask.target,
-  current: capital.ask.current,
-  additional: capital.ask.additional,
-  note: capital.ask.note,
-  /** Share of the target already paid up, as a percentage. */
-  progress: Math.round((capital.ask.current.amount / capital.ask.target.amount) * 100),
+/**
+ * Sector names as they should read inside the fold's card — the full labels
+ * from `data/sectors` are too long for a right-aligned tag at this width.
+ */
+const SHORT_SECTOR = {
+  'Hospitality & Tourism': 'Hospitality',
+  'Manufacturing & Industry': 'Manufacturing',
+  'Agriculture & Food Processing': 'Agro',
+  'Information Technology': 'IT',
+  'Pharma / Biotech': 'Pharma',
+  Hydropower: 'Hydropower',
 };
 
-/** Stacked avatars closing the raise card — the capital already at work. */
-export const heroHoldings = {
-  avatars: portfolio.slice(0, 4).map((holding) => ({
+/**
+ * The one fact worth reading per holding at card size. Kept here rather than
+ * pulled from `metrics[0]`, because the first metric is the most interesting
+ * one for only some of the companies.
+ */
+const HOLDING_DETAIL = {
+  'sankalpa-hospitality': 'Landmark Kathmandu · Durbar Marg',
+  'diamond-hill-resort': 'Destination resort · Panauti',
+  'classic-industries': '>85% domestic market share',
+  'kisan-agrobase': '36,000 L/day bottling capacity',
+  'dobhan-khola-hydropower': '24.5 MW run-of-river · Gorkha',
+};
+
+/** Drives the card on the right of the fold — the capital already at work. */
+export const heroPortfolio = {
+  eyebrow: 'Capital at work',
+  status: 'Live',
+  holdings: portfolio.map((holding) => ({
     slug: holding.slug,
     icon: holding.icon,
     // Trading names read better than the full legal entity at this size.
     name: holding.name.replace(/ (Pvt\.|Ltd\.|Limited).*$/, ''),
+    sector: SHORT_SECTOR[holding.sector] ?? holding.sector,
+    detail: HOLDING_DETAIL[holding.slug] ?? holding.summary,
   })),
-  summary: `${portfolio.length} active holdings across ${sectors.length} sectors`,
+  summary: `${portfolio.length} holdings across ${sectors.length} sectors`,
+  cta: 'View the full portfolio',
   href: '/portfolio',
 };
 

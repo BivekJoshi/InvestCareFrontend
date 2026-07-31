@@ -4,16 +4,18 @@ import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { ArrowUpRight } from 'lucide-react';
 
-import Counter from '@/components/ui/Counter';
 import { getIcon } from '@/components/ui/icon-map';
 import { motion as motionTokens } from '@/theme';
-import { heroHoldings, heroRaise } from './hero.content';
+import { heroPortfolio } from './hero.content';
 
-const { duration, ease } = motionTokens;
+const { duration, ease, stagger } = motionTokens;
+
+/** Entrance beat for the first holding row; the rest follow it. */
+const ROWS_DELAY = 0.75;
 
 /**
- * Right column of the fold: what is being raised, how far it has come, and the
- * holdings the capital already sits behind.
+ * Right column of the fold: the live portfolio — what the capital already sits
+ * behind, one quiet row per holding.
  */
 export default function HeroRaisePanel() {
   return (
@@ -30,102 +32,62 @@ export default function HeroRaisePanel() {
       />
 
       <figure className="ring-gradient relative rounded-3xl bg-forest-950/65 p-6 backdrop-blur-md sm:p-7">
-        <figcaption className="flex items-center justify-between gap-4">
-          <span className="script text-xl text-forest-200/80">
-            {heroRaise.eyebrow}
-          </span>
-          <span className="inline-flex items-center gap-1.5 rounded-full bg-gold-500/15 px-3 py-1 text-[10px] font-semibold uppercase tracking-label text-gold-300">
-            <span className="h-1.5 w-1.5 animate-pulse-soft rounded-full bg-gold-400" />
-            {heroRaise.status}
+        <figcaption className="flex items-center justify-between gap-4 border-b border-white/10 pb-4">
+          <span className="script text-xl text-forest-200/80">{heroPortfolio.eyebrow}</span>
+          <span className="inline-flex items-center gap-1.5 text-[10px] font-semibold uppercase tracking-label text-gold-300/90">
+            <span className="h-1.5 w-1.5 rounded-full bg-gold-400" />
+            {/* {heroPortfolio.status} */}
           </span>
         </figcaption>
 
-        <p className="mt-5 font-display text-[2.5rem] font-bold leading-none text-white">
-          <Counter to={heroRaise.target.amount} suffix=" Units" />
-        </p>
-        <p className="mt-2 text-sm text-forest-200/65">{heroRaise.target.label}</p>
-
-        <ProgressBar percent={heroRaise.progress} />
-
-        <dl className="mt-5 grid grid-cols-2 gap-px overflow-hidden rounded-xl border border-white/10 bg-white/10">
-          {[heroRaise.current, heroRaise.additional].map((entry) => (
-            <div key={entry.label} className="bg-forest-950/70 px-4 py-3">
-              <dt className="text-[10px] uppercase leading-tight tracking-label text-forest-200/55">
-                {entry.label}
-              </dt>
-              <dd className="mt-1.5 font-display text-lg font-semibold text-cream">{entry.value}</dd>
-            </div>
+        <ul className="divide-y divide-white/[0.06]">
+          {heroPortfolio.holdings.map((holding, index) => (
+            <HoldingRow key={holding.slug} holding={holding} index={index} />
           ))}
-        </dl>
+        </ul>
 
-        <p className="mt-4 text-[11px] leading-relaxed text-forest-200/50">{heroRaise.note}</p>
-
-        <HoldingsFooter />
+        <Link
+          href={heroPortfolio.href}
+          className="group flex items-center gap-3 border-t border-white/10 pt-4 text-xs
+                     text-forest-100/70 transition-colors hover:text-cream"
+        >
+          {heroPortfolio.cta}
+          <span className="text-forest-200/35">·</span>
+          <span className="text-forest-200/50">{heroPortfolio.summary}</span>
+          <ArrowUpRight
+            className="ml-auto h-4 w-4 shrink-0 text-forest-200/40 transition-all duration-300
+                       group-hover:translate-x-0.5 group-hover:text-gold-400"
+            aria-hidden="true"
+          />
+        </Link>
       </figure>
     </motion.div>
   );
 }
 
-/** Share of the target already paid up. */
-function ProgressBar({ percent }) {
-  return (
-    <div className="mt-6">
-      <div
-        className="h-1.5 w-full overflow-hidden rounded-full bg-white/10"
-        role="img"
-        aria-label={`${percent}% of the target promoter capital is already paid up`}
-      >
-        <motion.div
-          className="h-full rounded-full bg-gradient-to-r from-gold-600 via-gold-500 to-gold-300"
-          initial={{ width: 0 }}
-          animate={{ width: `${percent}%` }}
-          transition={{ duration: 1.3, delay: 1, ease }}
-        />
-      </div>
-      <div className="mt-2 flex justify-between text-[10px] uppercase tracking-label text-forest-200/50">
-        <span>{percent}% paid up</span>
-        <span>Target {heroRaise.target.value}</span>
-      </div>
-    </div>
-  );
-}
+/** One holding: mark, trading name, the fact that defines it, and its sector. */
+function HoldingRow({ holding, index }) {
+  const Icon = getIcon(holding.icon);
 
-/**
- * Overlapping sector marks standing in for the live portfolio — richer than a
- * bare count, and it keeps the card compact enough to hold the fold.
- */
-function HoldingsFooter() {
   return (
-    <Link
-      href={heroHoldings.href}
-      className="group mt-5 flex items-center gap-3 border-t border-white/10 pt-4"
+    <motion.li
+      className="flex items-center gap-3.5 py-3.5"
+      initial={{ opacity: 0, y: 10 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: duration.base, delay: ROWS_DELAY + index * stagger.tight, ease }}
     >
-      <span className="flex -space-x-2" aria-hidden="true">
-        {heroHoldings.avatars.map((holding) => {
-          const Icon = getIcon(holding.icon);
-
-          return (
-            <span
-              key={holding.slug}
-              title={holding.name}
-              className="flex h-8 w-8 items-center justify-center rounded-full border border-forest-800
-                         bg-forest-900 text-gold-400 transition-transform duration-300 group-hover:-translate-y-0.5"
-            >
-              <Icon className="h-3.5 w-3.5" />
-            </span>
-          );
-        })}
+      <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-white/10 bg-white/[0.04] text-gold-400/90">
+        <Icon className="h-4 w-4" aria-hidden="true" />
       </span>
 
-      <span className="text-xs text-forest-100/70 transition-colors group-hover:text-cream">
-        {heroHoldings.summary}
-      </span>
+      <div className="min-w-0">
+        <p className="truncate text-sm font-medium text-cream">{holding.name}</p>
+        <p className="truncate text-[11px] leading-relaxed text-forest-200/50">{holding.detail}</p>
+      </div>
 
-      <ArrowUpRight
-        className="ml-auto h-4 w-4 shrink-0 text-forest-200/40 transition-all duration-300
-                   group-hover:translate-x-0.5 group-hover:text-gold-400"
-        aria-hidden="true"
-      />
-    </Link>
+      <span className="ml-auto shrink-0 text-[10px] uppercase tracking-label text-forest-200/40">
+        {holding.sector}
+      </span>
+    </motion.li>
   );
 }
