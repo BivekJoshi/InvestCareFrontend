@@ -26,7 +26,7 @@ export default function HeroRaisePanel() {
       transition={{ duration: duration.headline, delay: 0.55, ease }}
     >
       {/* Soft halo so the glass panel lifts off the WebGL scene behind it. */}
-      <div
+      {/* <div
         className="absolute -inset-8 rounded-[3rem] bg-forest-500/10 blur-3xl"
         aria-hidden="true"
       />
@@ -36,7 +36,6 @@ export default function HeroRaisePanel() {
           <span className="script text-xl text-forest-200/80">{heroPortfolio.eyebrow}</span>
           <span className="inline-flex items-center gap-1.5 text-[10px] font-semibold uppercase tracking-label text-gold-300/90">
             <span className="h-1.5 w-1.5 rounded-full bg-gold-400" />
-            {/* {heroPortfolio.status} */}
           </span>
         </figcaption>
 
@@ -60,7 +59,7 @@ export default function HeroRaisePanel() {
             aria-hidden="true"
           />
         </Link>
-      </figure>
+      </figure> */}
     </motion.div>
   );
 }

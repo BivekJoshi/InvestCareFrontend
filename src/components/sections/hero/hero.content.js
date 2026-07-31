@@ -106,5 +106,5 @@ export const heroMetrics = [
   { key: 'holdings', value: portfolio.length, pad: true, label: 'Active portfolio companies' },
   { key: 'sectors', value: sectors.length, pad: true, label: 'High-conviction sectors' },
   { key: 'authorized', text: authorizedCapital.display, label: authorizedCapital.label },
-  { key: 'ipo', text: ipoMilestone.date.replace(',', ''), label: `${ipoMilestone.title} · SEBON` },
+  { key: 'Invest Care', text: "Invest care", label: `2074-06-09 (B.S)` },
 ];
