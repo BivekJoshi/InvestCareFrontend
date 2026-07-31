@@ -26,6 +26,7 @@ export const portfolio = [
     ],
     image: "/images/portfolio/Landmark.png", // drop the file in and set to: '/images/portfolio/sankalpa-hospitality.jpg'
     imageHint: "Hotel exterior or lobby — landscape, 1600×1000",
+    logo: null, // company logo, transparent PNG/SVG: '/images/portfolio/logos/sankalpa-hospitality.png'
   },
   {
     slug: "diamond-hill-resort",
@@ -46,6 +47,7 @@ export const portfolio = [
     ],
     image: "/images/portfolio/DiamondHillResort.png", // drop the file in and set to: '/images/portfolio/diamond-hill-resort.jpg'
     imageHint: "Resort grounds / valley view — landscape, 1600×1000",
+    logo: null, // company logo, transparent PNG/SVG: '/images/portfolio/logos/diamond-hill-resort.png'
   },
   {
     slug: "classic-industries",
@@ -66,6 +68,7 @@ export const portfolio = [
     ],
     image: "/images/portfolio/Classic.png", // drop the file in and set to: '/images/portfolio/classic-industries.jpg'
     imageHint: "Factory floor or product line — landscape, 1600×1000",
+    logo: null, // company logo, transparent PNG/SVG: '/images/portfolio/logos/classic-industries.png'
   },
   {
     slug: "kisan-agrobase",
@@ -82,10 +85,11 @@ export const portfolio = [
     metrics: [
       "36,000 L/day bottling capacity",
       "Sales NPR 10.0 Cr → 100.9 Cr (FY82-83 → FY86-87P)",
-      "IPO planned FY 2084-85",
+      "IPO planned",
     ],
     image: "/images/portfolio/kisan.png", // drop the file in and set to: '/images/portfolio/kisan-agrobase.jpg'
     imageHint: "Bottling plant or product range — landscape, 1600×1000",
+    logo: null, // company logo, transparent PNG/SVG: '/images/portfolio/logos/kisan-agrobase.png'
   },
   {
     slug: "dobhan-khola-hydropower",
@@ -107,6 +111,7 @@ export const portfolio = [
     ],
     image: "/images/portfolio/Dobhan.png", // drop the file in and set to: '/images/portfolio/dobhan-khola-hydropower.jpg'
     imageHint: "River / powerhouse site — landscape, 1600×1000",
+    logo: null, // company logo, transparent PNG/SVG: '/images/portfolio/logos/dobhan-khola-hydropower.png'
   },
 ];
 

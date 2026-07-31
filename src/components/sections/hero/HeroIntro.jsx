@@ -41,7 +41,7 @@ const rise = (delay) => ({ duration: duration.slow, delay, ease });
 export default function HeroIntro() {
   return (
     <div className="max-w-2xl">
-      <motion.div
+      {/* <motion.div
         className="inline-flex items-center gap-3 rounded-full border border-white/15 bg-white/[0.06] py-1.5 px-5 backdrop-blur-sm"
         initial={{ opacity: 0, y: 12 }}
         animate={{ opacity: 1, y: 0 }}
@@ -49,13 +49,12 @@ export default function HeroIntro() {
       >
         <span className="text-[11px] font-semibold uppercase tracking-eyebrow text-forest-100">
           {heroBadge.status}
-          {/* The location is the first thing to go when the badge gets tight. */}
           <span className="mx-2 hidden text-forest-300/50 sm:inline">·</span>
           <span className="hidden text-forest-200/70 sm:inline">
             {heroBadge.location}
           </span>
         </span>
-      </motion.div>
+      </motion.div> */}
 
       <h1 className="mt-7 font-display text-[clamp(2.35rem,4.4vw,3.9rem)] font-bold leading-[1.05] text-white">
         {heroHeadline.map((line, index) => (

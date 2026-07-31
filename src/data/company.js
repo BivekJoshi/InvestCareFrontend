@@ -57,10 +57,10 @@ export const contact = {
   office: 'Fourth Floor, Krishna Tower, New Baneshwor-10, Kathmandu, Nepal',
   email: 'investcarelimited@gmail.com',
   phones: [
-    { name: 'Madhu Poudel', number: '9851030949' },
-    { name: 'CN Pandey', number: '9851030564' },
-    { name: 'CM Niroula', number: '9841116357' },
-    { name: 'Narayan Adhikari', number: '9851094119' },
+    // { name: 'Madhu Poudel', number: '9851030949' },
+    // { name: 'CN Pandey', number: '9851030564' },
+    // { name: 'CM Niroula', number: '9841116357' },
+    // { name: 'Narayan Adhikari', number: '9851094119' },
   ],
 };
 
@@ -124,7 +124,7 @@ export const roadmap = [
     detail: 'Appointment of issuer rating agency.',
   },
   {
-    date: 'Magh, 2083',
+    date: 'Target',
     title: 'IPO Application',
     detail: 'Application to SEBON with full documentation.',
   },
@@ -202,7 +202,7 @@ export const valueProps = [
   },
   {
     title: 'Clear Path to Listing',
-    body: 'A fully sequenced SEBON-compliant roadmap from promoter fundraising through to IPO application by Magh 2083.',
+    body: 'A fully sequenced SEBON-compliant roadmap from promoter fundraising through to IPO application.',
   },
 ];
 

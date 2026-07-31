@@ -31,7 +31,7 @@ export default function AboutPage() {
           <Reveal variants={slideInLeft}>
             <MediaFrame
               /* set to "/images/company/office-interior.jpg" once the asset exists */
-              src={null}
+              src={"/images/brand/investcare-vertical-white-on-green.jpg"}
               alt="Invest Care Limited registered office, New Baneshwor"
               hint="/images/company/office-interior.jpg — landscape, 1600×1200"
               ratio="landscape"

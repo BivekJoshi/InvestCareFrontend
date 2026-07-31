@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
+import Image from 'next/image';
 import Link from 'next/link';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { ArrowUpRight } from 'lucide-react';
@@ -170,10 +171,7 @@ function ShowcaseCard({ item, index }) {
           imageClassName="group-hover:scale-[1.06]"
           sizes="(max-width: 1024px) 80vw, 29rem"
         />
-        <span className="absolute left-4 top-4 inline-flex items-center gap-1.5 rounded-full bg-forest-950/80 px-3 py-1.5 text-[10px] font-semibold uppercase tracking-[0.14em] text-gold-400 backdrop-blur-sm">
-          <span className="h-1.5 w-1.5 rounded-full bg-gold-500 animate-pulse-soft" />
-          {item.status}
-        </span>
+        <PortfolioLogo item={item} />
       </div>
 
       <div className="p-7">
@@ -201,6 +199,38 @@ function ShowcaseCard({ item, index }) {
         </ul>
       </div>
     </motion.article>
+  );
+}
+
+/**
+ * Company logo pinned over the card image.
+ *
+ * Falls back to the status pill while `logo` is still null (or if the file is
+ * missing), so the corner never renders empty before the assets land.
+ */
+function PortfolioLogo({ item }) {
+  const [failed, setFailed] = useState(false);
+
+  if (!item.logo || failed) {
+    return (
+      <span className="absolute left-4 top-4 inline-flex items-center gap-1.5 rounded-full bg-forest-950/80 px-3 py-1.5 text-[10px] font-semibold uppercase tracking-[0.14em] text-gold-400 backdrop-blur-sm">
+        <span className="h-1.5 w-1.5 rounded-full bg-gold-500 animate-pulse-soft" />
+        {item.status}
+      </span>
+    );
+  }
+
+  return (
+    <span className="absolute left-4 top-4 inline-flex items-center justify-center rounded-xl bg-white/90 px-3 py-2 shadow-sm backdrop-blur-sm">
+      <Image
+        src={item.logo}
+        alt={`${item.name} logo`}
+        width={240}
+        height={120}
+        onError={() => setFailed(true)}
+        className="h-7 w-auto max-w-[8.5rem] object-contain"
+      />
+    </span>
   );
 }
 

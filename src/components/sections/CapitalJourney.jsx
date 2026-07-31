@@ -42,8 +42,8 @@ const STEPS = [
     id: 'compound-realise',
     icon: LineChart,
     title: 'Compound & realise',
-    body: 'Holdings are built toward their own listings and liquidity events — KABIL is already targeting an IPO in FY 2084-85 — while Invest Care itself moves toward NEPSE.',
-    detail: 'Portfolio IPOs · dividend flow · listing by Magh 2083',
+    body: 'Holdings are built toward their own listings and liquidity events — KABIL is already targeting an IPO.',
+    detail: 'Portfolio IPOs · dividend flow · Target',
   },
 ];
 

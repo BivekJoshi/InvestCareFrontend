@@ -6,7 +6,7 @@ const FACTS = [
   'Incorporated 2074 BS',
   'Public Limited Company',
   'SEBON-compliant roadmap',
-  'IPO application · Magh 2083',
+  'IPO application · Target',
   '5 active holdings',
   // 'Reg. 175982/074/075',
 ];

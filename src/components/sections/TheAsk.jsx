@@ -19,7 +19,7 @@ export default function TheAsk({ tone = 'light' }) {
         lead="Invest Care is raising promoter capital to fund an already-active, diversified portfolio and a well-advanced acquisition pipeline."
       />
 
-      <div className="mt-14 grid items-stretch gap-4 md:grid-cols-[1fr_auto_1fr_auto_1fr]">
+      {/* <div className="mt-14 grid items-stretch gap-4 md:grid-cols-[1fr_auto_1fr_auto_1fr]">
         <Reveal variants={scaleIn}>
           <AskCard label={current.label} value={current.value} variant="soft" />
         </Reveal>
@@ -35,7 +35,7 @@ export default function TheAsk({ tone = 'light' }) {
         <Reveal variants={scaleIn} delay={0.2}>
           <AskCard label={target.label} value={target.value} variant="deep" />
         </Reveal>
-      </div>
+      </div> */}
 
       <Reveal className="mt-8">
         {/* Regulatory footnote — stays in the sans face; a full sentence of

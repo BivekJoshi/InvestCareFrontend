@@ -10,7 +10,7 @@ import { cn } from '@/lib/utils';
 
 export default function WhyInvest({ tone = 'deep' }) {
   return (
-    <Section id="why-invest" tone={tone}>
+    <Section id="why-invest" tone={tone} >
       <Aurora intensity="soft" />
       <div className="pointer-events-none absolute inset-0 grain opacity-[0.05]" aria-hidden="true" />
 
