@@ -8,12 +8,12 @@
 
 export const board = [
   {
-    slug: 'madhu-poudel',
-    name: 'Mr. Madhu Poudel',
-    role: 'Chairman',
+    slug: 'madhu-paudel',
+    name: 'Mr. Madhu Paudel',
+    role: 'Chairman, General Secretary - Medicine Importers’ Association of Nepal',
     credentials: 'M.Phil, LLB',
     bio: '15+ years in pharmaceutical services and distribution, including senior roles at Ranbaxy and Synergy Overseas. Executive board member, Management Association of Nepal.',
-    image: '/images/board/MaduCM.png', // drop the file in and set to: '/images/board/madhu-poudel.jpg'
+    image: '/images/board/MaduCM.png',
   },
   {
     slug: 'basanta-chandra-marahatta',

@@ -8,7 +8,7 @@ automatically — no code change needed.
 
 | File | Person |
 | --- | --- |
-| `madhu-poudel.jpg` | Mr. Madhu Poudel — Chairman |
+| `madhu-paudel.jpg` | Mr. Madhu Paudel — Chairman |
 | `basanta-chandra-marahatta.jpg` | Prof. Dr. Er. Basanta Chandra Marahatta — Director |
 | `cn-pandey.jpg` | Mr. CN Pandey — Director |
 | `chandramani-niroula.jpg` | Mr. Chandramani Niroula — Director |

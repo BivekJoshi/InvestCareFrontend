@@ -6,6 +6,7 @@ const ROUTES = [
   { path: '/leadership', priority: 0.7 },
   { path: '/portfolio', priority: 0.9 },
   { path: '/invest', priority: 0.9 },
+  { path: '/career', priority: 0.5 },
   { path: '/contact', priority: 0.6 },
   { path: '/disclaimer', priority: 0.3 },
 ];

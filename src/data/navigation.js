@@ -4,6 +4,7 @@ export const navLinks = [
   { href: '/leadership', label: 'Leadership' },
   { href: '/portfolio', label: 'Portfolio' },
   { href: '/invest', label: 'Invest' },
+  { href: '/career', label: 'Careers' },
   { href: '/contact', label: 'Contact' },
 ];
 
@@ -14,6 +15,7 @@ export const footerLinks = [
       { href: '/about', label: 'Who We Are' },
       { href: '/about#incorporation', label: 'Incorporation' },
       { href: '/leadership', label: 'Board of Directors' },
+      { href: '/career', label: 'Careers' },
       { href: '/contact', label: 'Contact Us' },
     ],
   },

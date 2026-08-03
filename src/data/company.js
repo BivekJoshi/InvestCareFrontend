@@ -57,7 +57,7 @@ export const contact = {
   office: 'Fourth Floor, Krishna Tower, New Baneshwor-10, Kathmandu, Nepal',
   email: 'investcarelimited@gmail.com',
   phones: [
-    // { name: 'Madhu Poudel', number: '9851030949' },
+    // { name: 'Madhu Paudel', number: '9851030949' },
     // { name: 'CN Pandey', number: '9851030564' },
     // { name: 'CM Niroula', number: '9841116357' },
     // { name: 'Narayan Adhikari', number: '9851094119' },
