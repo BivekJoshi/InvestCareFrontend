@@ -7,6 +7,7 @@ import Preloader from '@/components/layout/Preloader';
 import ScrollProgress from '@/components/layout/ScrollProgress';
 import ThemeProvider from '@/theme/ThemeProvider';
 import CustomCursor from '@/components/layout/CustomCursor';
+import ChromeSlot from '@/components/layout/ChromeSlot';
 import { company } from '@/data/company';
 import { brand } from '@/theme';
 
@@ -93,21 +94,28 @@ export default function RootLayout({ children }) {
     <html lang="en" className={`${sans.variable} ${display.variable} ${script.variable}`}>
       <body className="flex min-h-screen flex-col">
         <ThemeProvider>
-          <Preloader />
-          <ScrollProgress />
-          <CustomCursor />
-          <a
-            href="#main"
-            className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100]
-                       focus:rounded-lg focus:bg-forest-800 focus:px-4 focus:py-2 focus:text-cream"
-          >
-            Skip to content
-          </a>
-          <Navbar />
+          {/* Marketing shell — suppressed on /admin, which renders bare. */}
+          <ChromeSlot>
+            <Preloader />
+            <ScrollProgress />
+            <CustomCursor />
+            <a
+              href="#main"
+              className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100]
+                         focus:rounded-lg focus:bg-forest-800 focus:px-4 focus:py-2 focus:text-cream"
+            >
+              Skip to content
+            </a>
+            <Navbar />
+          </ChromeSlot>
+
           <main id="main" className="flex-1">
             {children}
           </main>
-          <Footer />
+
+          <ChromeSlot>
+            <Footer />
+          </ChromeSlot>
         </ThemeProvider>
       </body>
     </html>

@@ -16,7 +16,23 @@ This repo is a monolith holding both halves of the product:
 | Path | What it is |
 | --- | --- |
 | `src/`, `public/` (repo root) | The Next.js marketing website |
+| [`src/app/admin/`](src/app/admin/) | The CMS, served at `/admin` — see [The CMS](#the-cms) below |
 | [`backend/`](backend/) | CMS API — Node.js + Express + PostgreSQL. Currently authentication only; see [backend/README.md](backend/README.md) |
+
+### The CMS
+
+| Route | Purpose |
+| --- | --- |
+| `/admin/login` | Sign in |
+| `/admin` | Dashboard — redirects to the login page without a valid session |
+
+The CMS is reachable by direct URL only. It is linked from nowhere on the
+public site, excluded from `sitemap.xml`, `Disallow`ed in `robots.txt` and
+served with `noindex, nofollow`. It also renders without the site navbar,
+footer and preloader — see [ChromeSlot](src/components/layout/ChromeSlot.jsx).
+
+The frontend reaches the API through `NEXT_PUBLIC_API_URL`; copy
+[.env.example](.env.example) to `.env.local` before running it.
 
 ---
 
