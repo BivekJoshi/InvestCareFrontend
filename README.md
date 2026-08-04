@@ -9,7 +9,20 @@ and **react-three-fiber / three.js**.
 
 ---
 
+## Repository layout
+
+This repo is a monolith holding both halves of the product:
+
+| Path | What it is |
+| --- | --- |
+| `src/`, `public/` (repo root) | The Next.js marketing website |
+| [`backend/`](backend/) | CMS API — Node.js + Express + PostgreSQL. Currently authentication only; see [backend/README.md](backend/README.md) |
+
+---
+
 ## Getting started
+
+### Frontend (repo root)
 
 ```bash
 npm install
@@ -20,6 +33,20 @@ npm run lint
 ```
 
 Node 18.18+ is required (developed on Node 22).
+
+### Backend (`backend/`)
+
+```bash
+cd backend
+npm install
+cp .env.example .env      # set JWT_SECRET and the database URL
+createdb investcare_cms
+npm run db:setup          # create tables + seed the admin user
+npm run dev               # http://localhost:5000
+```
+
+PostgreSQL 14+ is required (developed on PostgreSQL 16). Full API reference in
+[backend/README.md](backend/README.md).
 
 ---
 
