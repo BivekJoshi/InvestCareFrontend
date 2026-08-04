@@ -2,16 +2,6 @@ import dotenv from "dotenv";
 
 dotenv.config();
 
-const required = (key) => {
-  const value = process.env[key];
-  if (!value) {
-    throw new Error(
-      `Missing required environment variable "${key}". Copy backend/.env.example to backend/.env and fill it in.`
-    );
-  }
-  return value;
-};
-
 const bool = (value, fallback = false) =>
   value === undefined ? fallback : ["1", "true", "yes"].includes(String(value).toLowerCase());
 
@@ -36,7 +26,7 @@ export const env = {
   },
 
   jwt: {
-    secret: required("JWT_SECRET"),
+    secret: process.env.JWT_SECRET,
     expiresIn: process.env.JWT_EXPIRES_IN || "1d",
   },
 
@@ -48,3 +38,19 @@ export const env = {
     password: process.env.SEED_ADMIN_PASSWORD,
   },
 };
+
+/**
+ * Checked when the HTTP server boots, not on import — the migrate and seed
+ * scripts need only a database, so they can run against a remote database
+ * without carrying auth secrets.
+ */
+export function assertServerEnv() {
+  const missing = ["JWT_SECRET"].filter((key) => !process.env[key]);
+
+  if (missing.length) {
+    throw new Error(
+      `Missing required environment variable(s): ${missing.join(", ")}. ` +
+        "Copy backend/.env.example to backend/.env locally, or set them in the cPanel Node.js App panel."
+    );
+  }
+}

@@ -38,31 +38,50 @@ The frontend reaches the API through `NEXT_PUBLIC_API_URL`; copy
 
 ## Getting started
 
-### Frontend (repo root)
+Node 18.18+ and PostgreSQL 14+ are required (developed on Node 22 and
+PostgreSQL 16).
+
+### First time
 
 ```bash
-npm install
-npm run dev      # http://localhost:3000
-npm run build    # production build
+cp .env.example .env.local              # frontend → points at the API
+cp backend/.env.example backend/.env    # backend → set JWT_SECRET here
+createdb investcare_cms
+npm run setup                           # installs both halves, creates tables, seeds the admin
+```
+
+### Every day — one command
+
+```bash
+npm run dev
+```
+
+Starts **both** servers together with prefixed, colour-coded output:
+
+| | |
+| --- | --- |
+| `[web]` | Website — http://localhost:3000 |
+| `[api]` | CMS API — http://localhost:5000 |
+
+`Ctrl+C` stops both. If a port is taken, Next.js falls back to the next free
+one and prints it.
+
+### Running one half on its own
+
+```bash
+npm run dev:web    # website only
+npm run dev:api    # API only (same as: cd backend && npm run dev)
+```
+
+### Other scripts
+
+```bash
+npm run build    # production build of the website
 npm start        # serve the production build
 npm run lint
 ```
 
-Node 18.18+ is required (developed on Node 22).
-
-### Backend (`backend/`)
-
-```bash
-cd backend
-npm install
-cp .env.example .env      # set JWT_SECRET and the database URL
-createdb investcare_cms
-npm run db:setup          # create tables + seed the admin user
-npm run dev               # http://localhost:5000
-```
-
-PostgreSQL 14+ is required (developed on PostgreSQL 16). Full API reference in
-[backend/README.md](backend/README.md).
+Full API reference in [backend/README.md](backend/README.md).
 
 ---
 

@@ -1,5 +1,9 @@
 const BASE_URL = 'https://investcare.com.np';
 
+// Written once at build time. Required by `output: 'export'`, which has no
+// server to regenerate it per request.
+export const dynamic = 'force-static';
+
 const ROUTES = [
   { path: '/', priority: 1 },
   { path: '/about', priority: 0.8 },

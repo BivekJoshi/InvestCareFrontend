@@ -1,9 +1,10 @@
 import { createApp } from "./app.js";
-import { env } from "./config/env.js";
+import { assertServerEnv, env } from "./config/env.js";
 import { pool } from "./db/pool.js";
 
 const start = async () => {
   // Fail fast with a clear message rather than on the first request.
+  assertServerEnv();
   await pool.query("SELECT 1");
 
   const server = createApp().listen(env.port, () => {

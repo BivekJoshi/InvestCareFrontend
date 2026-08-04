@@ -1,0 +1,89 @@
+name: Deploy to cPanel
+
+# Pushes to main go live. Use the "Run workflow" button to redeploy by hand.
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+# Never let two deploys upload over each other.
+concurrency:
+  group: deploy-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  frontend:
+    name: Static site → public_html
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+
+      - name: Build the static export
+        env:
+          # Absolute URL — a static site has no server to proxy /api through.
+          NEXT_PUBLIC_API_URL: ${{ vars.NEXT_PUBLIC_API_URL }}
+        run: npm run build:static
+
+      - name: Add the Apache config
+        run: cp deploy/public_html.htaccess out/.htaccess
+
+      - name: Fail if the build looks empty
+        run: |
+          test -f out/index.html || { echo "out/index.html missing"; exit 1; }
+          test -f out/404.html   || { echo "out/404.html missing";   exit 1; }
+          test -f out/admin/login/index.html || test -f out/admin/login.html \
+            || { echo "CMS login page missing"; exit 1; }
+
+      - name: Upload to public_html
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          protocol: ftps
+          local-dir: ./out/
+          server-dir: /public_html/
+          # Anything the CMS or the host owns must survive a deploy.
+          exclude: |
+            **/.git*
+            **/.git*/**
+            **/node_modules/**
+            cgi-bin/**
+            .well-known/**
+
+  backend:
+    name: API → Node.js app
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      # Passenger restarts when tmp/restart.txt changes. Writing the commit SHA
+      # guarantees the file differs every deploy, so it always gets uploaded.
+      - name: Stamp a restart trigger
+        run: |
+          mkdir -p backend/tmp
+          echo "${{ github.sha }} ${{ github.run_number }}" > backend/tmp/restart.txt
+
+      - name: Upload the API source
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          protocol: ftps
+          local-dir: ./backend/
+          server-dir: ${{ secrets.FTP_API_DIR }}
+          # node_modules is installed on the server; .env lives in the cPanel UI.
+          exclude: |
+            **/node_modules/**
+            **/.git*
+            **/.git*/**
+            **/.env
+            **/*.log

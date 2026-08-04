@@ -4,10 +4,14 @@
   "private": true,
   "description": "Corporate website for Invest Care Limited — Your Capital. Our Commitment.",
   "scripts": {
-    "dev": "next dev",
+    "dev": "concurrently -n web,api -c cyan,magenta -k \"npm:dev:web\" \"npm:dev:api\"",
+    "dev:web": "next dev",
+    "dev:api": "npm --prefix backend run dev",
     "build": "next build",
+    "build:static": "BUILD_TARGET=static next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "setup": "npm install && npm --prefix backend install && npm --prefix backend run db:setup"
   },
   "dependencies": {
     "@react-three/drei": "^10.0.6",
@@ -21,6 +25,7 @@
   },
   "devDependencies": {
     "autoprefixer": "^10.4.21",
+    "concurrently": "^10.0.4",
     "eslint": "^9.24.0",
     "eslint-config-next": "^15.2.4",
     "postcss": "^8.5.3",
