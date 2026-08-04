@@ -1,9 +1,9 @@
-import AdminHome from '@/components/admin/AdminHome';
+import CmsApp from '@/components/admin/CmsApp';
 
 export const metadata = {
-  title: 'Dashboard',
+  title: 'Content',
 };
 
 export default function AdminPage() {
-  return <AdminHome />;
+  return <CmsApp />;
 }

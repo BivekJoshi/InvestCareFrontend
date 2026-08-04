@@ -1,0 +1,509 @@
+/**
+ * The site's initial content, frozen from the live website.
+ *
+ * Used only by `npm run db:content` to populate a fresh database. It is a
+ * plain data module with no imports, so the backend can be deployed on its own
+ * without dragging the frontend package along.
+ *
+ * This is a starting point, not a source of truth — once content is in the
+ * database, the CMS owns it and re-running the import needs --force.
+ */
+
+export const seedData = {
+  company: {
+    name: "Invest Care Limited",
+    intro: "Invest Care Limited is an investment holding company, built on disciplined capital stewardship and a clear commitment to long-term value creation. We take an active, hands-on approach to portfolio management, combining institutional capital with strategic insight to back promising enterprises, unlock hidden potential, and drive growth through focused, responsible engagement.",
+    vision: "To be Nepal's most respected investment holding company, setting the standard for integrity, transformative industrial impact, and lasting commercial success.",
+    mission: "To identify and scale high-potential businesses across Nepal's key sectors by deploying targeted capital and operational discipline that generate superior, sustainable returns for all stakeholders.",
+    tagline: "Your Capital. Our Commitment.",
+    shortName: "Invest Care",
+    profileDate: "Shrawan, 2083 | July 2026",
+    introSecondary: "As a Public Limited Company, Invest Care is now raising promoter capital ahead of a planned public offering to broaden its capital base and deepen investor participation."
+  },
+  values: [
+    {
+      title: "Transparency & Accountability",
+      body: "Open books, periodic disclosure and a board answerable to every shareholder."
+    },
+    {
+      title: "Disciplined Risk Management",
+      body: "Capital is committed only where downside is understood, priced and contained."
+    },
+    {
+      title: "Operational Excellence",
+      body: "Active ownership — we work alongside management, not from a distance."
+    }
+  ],
+  incorporation: {
+    summary: "Invest Care Limited is incorporated under the Companies Act of Nepal and operates within the country's established legal and financial framework. The company maintains full regulatory compliance, strong institutional transparency, and rigorous governance standards, and is now preparing for its planned public offering as a Public Limited Company.",
+    details: [
+      {
+        label: "Legal Name",
+        value: "Invest Care Limited"
+      },
+      {
+        label: "Company Type",
+        value: "Public Limited Company"
+      },
+      {
+        label: "Incorporated",
+        value: "2074-06-09 BS"
+      },
+      {
+        label: "Registered Office",
+        value: "Fourth Floor, Krishna Tower, New Baneshwor-10, Kathmandu"
+      }
+    ],
+    governancePillars: [
+      "Full SEBON & regulatory compliance",
+      "Independent board oversight",
+      "Statutory audit & disclosure"
+    ]
+  },
+  contact: {
+    email: "investcarelimited@gmail.com",
+    phone: "",
+    office: "Fourth Floor, Krishna Tower, New Baneshwor-10, Kathmandu, Nepal",
+    phones: []
+  },
+  capital: {
+    ask: {
+      note: "Followed by an IPO Provision of 333 Units (25% of issued capital) to open the company to public shareholders.",
+      target: {
+        label: "Target Capital Units",
+        value: "1,000 Units",
+        amount: 1000
+      },
+      current: {
+        label: "Current Capital Units",
+        value: "263 Units",
+        amount: 263
+      },
+      additional: {
+        label: "Additional Units Sought",
+        value: "737 Units",
+        amount: 737
+      }
+    },
+    bars: [
+      {
+        tone: "deep",
+        label: "Authorized Capital",
+        value: 60,
+        display: "NPR 60.00 Cr"
+      },
+      {
+        tone: "primary",
+        label: "Issued Capital",
+        value: 50.88,
+        display: "NPR 50.88 Cr"
+      },
+      {
+        tone: "muted",
+        label: "Total Promoter's Paid-Up Capital",
+        value: 38.16,
+        display: "NPR 38.16 Cr"
+      },
+      {
+        tone: "gold",
+        label: "IPO Provision (25% of Issued Capital)",
+        value: 12.72,
+        display: "NPR 12.72 Cr"
+      }
+    ],
+    buildUp: [
+      {
+        label: "Existing Paid-Up Capital",
+        value: "NPR 10.00 Cr"
+      },
+      {
+        label: "Additional Paid-Up Capital",
+        value: "NPR 28.16 Cr"
+      }
+    ],
+    buildUpTotal: {
+      label: "Total Promoter Capital",
+      value: "NPR 38.16 Cr"
+    }
+  },
+  investorQuote: {
+    text: "Capital is only the beginning. Trust is the real foundation. At Invest Care, we build both through enduring businesses, aligned partnerships, and returns designed to endure.",
+    attribution: "Board of Directors, Invest Care Limited"
+  },
+  seo: {
+    title: "Invest Care Limited — Your Capital. Our Commitment.",
+    ogImage: "/images/brand/investcarehorizontal.png",
+    description: "Invest Care Limited is a Nepali investment holding company deploying disciplined capital across hospitality, manufacturing, agro-processing, pharma, IT and hydropower — now raising promoter capital ahead of a planned public offering."
+  },
+  board: [
+    {
+      slug: "madhu-paudel",
+      name: "Mr. Madhu Paudel",
+      role: "Chairman, ",
+      credentials: "M.Phil, LLB",
+      bio: "General Secretary - Medicine Importers’ Association of Nepal. 15+ years in pharmaceutical services and distribution, including senior roles at Ranbaxy and Synergy Overseas. Executive board member, Management Association of Nepal.",
+      image: "/images/board/MaduCM.png"
+    },
+    {
+      slug: "basanta-chandra-marahatta",
+      name: "Prof. Dr. Er. Basanta Chandra Marahatta",
+      role: "Director",
+      credentials: "PhD, M.Sc. Engineering",
+      bio: "Chairman, Sumeru Polymers Ltd. and Acme Engineering College. 40+ years leading businesses across diversified sectors.",
+      image: "/images/board/BasantaDR.png"
+    },
+    {
+      slug: "cn-pandey",
+      name: "Mr. CN Pandey",
+      role: "Director",
+      credentials: "25+ years in hospitality, hydropower and travel",
+      bio: "Chairman, Samrat Group; CEO, Samrat Tours & Travels, Landmark Hotels & Resorts. Former President, NATTA (2017-2019).",
+      image: "/images/board/CNDR.png"
+    },
+    {
+      slug: "chandramani-niroula",
+      name: "Mr. Chandramani Niroula",
+      role: "Director",
+      credentials: "FCCA, MBS, LLB",
+      bio: "Director, Prosperity Growth Partners Ltd.; MD, Kisan Agrobase Industries Ltd. 12+ years in compliance, fund and project management.",
+      image: "/images/board/ChandraDR.png"
+    },
+    {
+      slug: "narayan-adhikari",
+      name: "Mr. Narayan Adhikari",
+      role: "Director",
+      credentials: "MBA",
+      bio: "10+ years executive management at Padma Shree Group; Chairperson, Abhinav Advisory Services. MSME specialist and active secondary-market investor.",
+      image: "/images/board/NarayanDR.png"
+    },
+    {
+      slug: "deepak-pandey",
+      name: "Mr. Deepak Pandey",
+      role: "Company Secretary",
+      credentials: "CA (ICAI/ICAN), ACA (ICAEW)",
+      bio: "Practicing Chartered Accountant with expertise in audit, financial advisory, credit analysis, and corporate governance.",
+      image: "/images/board/DeepakCS.png"
+    }
+  ],
+  sectors: [
+    {
+      slug: "hospitality-tourism",
+      name: "Hospitality & Tourism",
+      share: 30,
+      icon: "hotel",
+      color: "#1f6b46",
+      body: "Landmark Kathmandu (Sankalpa Hospitality) and Diamond Hill Resort, positioned to capture Nepal's 1M+ annual visitor economy."
+    },
+    {
+      slug: "hydropower",
+      name: "Energy Sector",
+      share: 20,
+      icon: "zap",
+      color: "#d4b04a",
+      body: "Equity in Dobhan Khola Hydropower, tapping Nepal's 83,000 MW potential and energy export ambitions."
+    },
+    {
+      slug: "manufacturing",
+      name: "Manufacturing & Industry",
+      share: 20,
+      icon: "factory",
+      color: "#57a479",
+      body: "Classic Industries Limited and peers supporting import substitution and steady domestic cash flows."
+    },
+    {
+      slug: "pharma-biotech",
+      name: "Pharma / Biotech",
+      share: 10,
+      icon: "pill",
+      color: "#c9a227",
+      body: "Diagnostics and generics built for Nepal's underpenetrated, fast-growing healthcare market."
+    },
+    {
+      slug: "information-technology",
+      name: "Information Technology",
+      share: 10,
+      icon: "laptop",
+      color: "#0f4029",
+      body: "Fintech and SaaS platforms benefiting from Nepal's 70%+ mobile penetration and digital economy push."
+    },
+    {
+      slug: "agriculture",
+      name: "Agriculture & Food Processing",
+      share: 10,
+      icon: "wheat",
+      color: "#8bc4a2",
+      body: "Kisan Agrobase Industries (KABIL), Nepal's first licensed natural mineral water manufacturer, serving domestic and export demand."
+    }
+  ],
+  portfolio: [
+    {
+      slug: "sankalpa-hospitality",
+      name: "Sankalpa Hospitality Pvt. Ltd.",
+      brand: "Brand: Landmark Kathmandu",
+      location: "Durbar Marg, Kathmandu",
+      sector: "Hospitality & Tourism",
+      icon: "hotel",
+      status: "Active",
+      summary: "Upscale city hotel on Durbar Marg, operating under the established Landmark Hotels & Resorts brand.",
+      profile: "Upscale city hotel on Durbar Marg, Kathmandu, operating under the Landmark Hotels & Resorts brand.",
+      metrics: [
+        "3 room categories",
+        "Restaurant, bar, banquet and conference facilities",
+        "6-property brand network"
+      ],
+      image: "/images/portfolio/Landmark.png",
+      imageHint: "Hotel exterior or lobby — landscape, 1600×1000",
+      logo: null
+    },
+    {
+      slug: "diamond-hill-resort",
+      name: "Diamond Hill Resort Pvt. Ltd.",
+      brand: "Kathmandu Valley leisure corridor",
+      location: "Panauti, Kavrepalanchok",
+      sector: "Hospitality & Tourism",
+      icon: "mountain",
+      status: "Active",
+      summary: "Nature-led destination resort at Panauti, on the eastern rim of the Kathmandu Valley.",
+      profile: "Nature-led destination resort on the eastern rim of the Kathmandu Valley, on the Namo Buddha circuit.",
+      metrics: [
+        "4 room categories",
+        "Published rates US$ 120-250 per night",
+        "Spa, trekking and event venue"
+      ],
+      image: "/images/portfolio/DiamondHillResort.png",
+      imageHint: "Resort grounds / valley view — landscape, 1600×1000",
+      logo: null
+    },
+    {
+      slug: "classic-industries",
+      name: "Classic Industries Limited",
+      brand: "Classic Mattress · Adira Group",
+      location: "Nepal",
+      sector: "Manufacturing & Industry",
+      icon: "factory",
+      status: "Active",
+      summary: "South Asia's first mattress manufacturer; >85% domestic coverage and a 2,500+ distributor network.",
+      profile: "South Asia's first mattress manufacturer (est. 1990); a five-company group spanning manufacturing, retail and trading.",
+      metrics: [
+        ">85% domestic market share",
+        "2,500+ distributors",
+        "Revenue NPR 63.8 Cr → 181.0 Cr (FY81-82A → FY85-86P)"
+      ],
+      image: "/images/portfolio/Classic.png",
+      imageHint: "Factory floor or product line — landscape, 1600×1000",
+      logo: null
+    },
+    {
+      slug: "kisan-agrobase",
+      name: "Kisan Agrobase Industries Ltd.",
+      brand: "KABIL · Thopa · Mulko",
+      location: "Nepal",
+      sector: "Agriculture & Food Processing",
+      icon: "wheat",
+      status: "Active",
+      summary: "Nepal's first licensed natural mineral water manufacturer, operating five agro-processing verticals.",
+      profile: "Nepal's first licensed natural mineral water manufacturer, operating five agro-processing verticals.",
+      metrics: [
+        "36,000 L/day bottling capacity",
+        "Sales NPR 10.0 Cr → 100.9 Cr (FY82-83 → FY86-87P)",
+        "IPO planned"
+      ],
+      image: "/images/portfolio/kisan.png",
+      imageHint: "Bottling plant or product range — landscape, 1600×1000",
+      logo: null
+    },
+    {
+      slug: "dobhan-khola-hydropower",
+      name: "Dobhan Khola Hydropower",
+      brand: "24.5 MW · Gorkha District",
+      location: "Gorkha District",
+      sector: "Hydropower",
+      icon: "zap",
+      status: "Active",
+      summary: "Run-of-river project with PPA, licence and financial closure complete; 22.17% equity IRR.",
+      profile: "24.5 MW run-of-river project, expandable to 30 MW; PPA, generation licence and financial closure complete.",
+      metrics: [
+        "22.17% equity IRR",
+        "6-year payback",
+        "NPR 500 Cr project cost",
+        "NPR 125 Cr planned equity base"
+      ],
+      image: "/images/portfolio/Dobhan.png",
+      imageHint: "River / powerhouse site — landscape, 1600×1000",
+      logo: null
+    }
+  ],
+  portfolioStats: [
+    {
+      value: "05",
+      label: "Portfolio companies"
+    },
+    {
+      value: "04",
+      label: "Sectors represented"
+    },
+    {
+      value: "40%",
+      label: "Target allocation to Hospitality & Tourism"
+    }
+  ],
+  roadmap: [
+    {
+      date: "Ashad, 2083",
+      title: "Open for Investment",
+      detail: "Promoter capital round opens to qualified investors."
+    },
+    {
+      date: "Ashoj, 2083",
+      title: "Fundraising Completion",
+      detail: "Promoter's capital locked."
+    },
+    {
+      date: "Ashoj, 2083",
+      title: "Appointment of Issue Manager",
+      detail: "Mandated merchant banker onboarded for the offering."
+    },
+    {
+      date: "Kartik, 2083",
+      title: "Annual General Meeting",
+      detail: "AGM to pass the IPO resolution."
+    },
+    {
+      date: "Mangsir, 2083",
+      title: "Credit Rating",
+      detail: "Appointment of issuer rating agency."
+    },
+    {
+      date: "Target",
+      title: "IPO Application",
+      detail: "Application to SEBON with full documentation."
+    }
+  ],
+  benchmarks: [
+    {
+      name: "Berkshire Hathaway",
+      country: "United States",
+      figure: "US$ 1.07 Trillion",
+      caption: "Market capitalization (Jul 2026)",
+      featured: true,
+      points: [
+        "80+ operating companies spanning insurance, rail freight, energy, manufacturing and retail",
+        "~10% annualized market-cap growth over the past five years",
+        "Built since 1965 under Warren Buffett on long-term ownership of quality businesses"
+      ]
+    },
+    {
+      name: "Blackstone",
+      country: "United States",
+      figure: "US$ 1.3 Trillion",
+      caption: "Assets under management (Q1 2026)",
+      featured: false,
+      points: [
+        "World's largest alternative asset manager, AUM up 12% year-on-year to a record high",
+        "~12,500 real estate assets and 250+ portfolio companies globally",
+        "Strategies spanning private equity, real estate, credit and infrastructure"
+      ]
+    }
+  ],
+  holdingPrinciples: [
+    "Patient, Long-Term Capital",
+    "Active Ownership & Governance",
+    "Diversification Across Cycles",
+    "Aligned Promoter Interests"
+  ],
+  nepalStats: [
+    {
+      value: "NPR 4.85 Tn",
+      label: "NEPSE market cap — ~78-80% of GDP (Mar 2026)"
+    },
+    {
+      value: "263",
+      label: "Companies listed on NEPSE (Mar 2026)"
+    },
+    {
+      value: "42,000+ MW",
+      label: "Nepal's hydropower potential, mostly untapped"
+    },
+    {
+      value: "~5.0%",
+      label: "GDP growth projected to rebound in FY2027"
+    }
+  ],
+  nepalMomentum: [
+    "SEBON’s 2026 IPO reforms introduce book-building pricing and premium-pricing eligibility for larger, profitable issuers",
+    "A cabinet-backed study committee is reviewing a new stock exchange license to modernize and diversify NEPSE",
+    "A growing wave of holding and investment companies (e.g. Brahma Jyoti Holdings, R.K.D. Holdings, R.S.T.C.A. Investment Fund) are advancing toward IPO, validating the model Invest Care is pursuing"
+  ],
+  nepalWhyNow: [
+    "Near-term growth is moderating in FY2026 amid external shocks, with a rebound toward ~5% projected for FY2027 (ADB, World Bank)",
+    "Structural tailwinds remain intact: 42,000+ MW of hydropower potential, recovering tourism, and resilient remittance-driven consumption",
+    "Rising retail and non-resident Nepali (NRN) participation is deepening secondary-market liquidity for new listings"
+  ],
+  landing: {
+    ticker: [
+      "Incorporated 2074 BS",
+      "Public Limited Company",
+      "SEBON-compliant roadmap",
+      "IPO application · Target",
+      "5 active holdings"
+    ],
+    stats: [
+      {
+        value: "05",
+        label: "Active portfolio companies",
+        body: "Capital already deployed"
+      },
+      {
+        value: "06",
+        label: "High-conviction sectors",
+        body: "Diversified across cycles"
+      },
+      {
+        value: "100+",
+        label: "Combined years on the board",
+        body: "Investing, operations, governance"
+      },
+      {
+        value: "22.17%",
+        label: "Equity IRR — Dobhan Khola",
+        body: "24.5 MW, financial closure complete"
+      }
+    ],
+    valueProps: [
+      {
+        title: "Proven, Live Portfolio",
+        body: "Five companies across hospitality, manufacturing, agro-processing and hydropower — capital already at work, not just a proposal on paper."
+      },
+      {
+        title: "Diversified Exposure",
+        body: "Portfolio spans 6 high-growth sectors, reducing concentration risk while opening multiple pathways to upside."
+      },
+      {
+        title: "Seasoned Leadership",
+        body: "Backed by a board with 100+ combined years of investing, operations, and governance experience in Nepal and globally."
+      },
+      {
+        title: "Built for Nepal's Growth",
+        body: "Positioned to capture Nepal's demographic dividend, tourism recovery, digital acceleration, and infrastructure-led expansion."
+      },
+      {
+        title: "Clear Path to Listing",
+        body: "A fully sequenced SEBON-compliant roadmap from promoter fundraising through to IPO application."
+      }
+    ],
+    investorCommitments: [
+      {
+        title: "Transparent Reporting",
+        body: "We keep investors informed with periodic updates on financial performance, portfolio developments, and board-level disclosures."
+      },
+      {
+        title: "Aligned Interests",
+        body: "Our promoters are among our largest investors. With significant personal capital at stake, our incentives are fully aligned with yours."
+      },
+      {
+        title: "Institutional Governance",
+        body: "Guided by independent directors, statutory auditors, and SEBON-compliant controls built to meet the standards of Nepal's most trusted institutions."
+      }
+    ]
+  }
+};

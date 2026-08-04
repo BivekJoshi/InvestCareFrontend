@@ -25,11 +25,19 @@ jobs:
 
       - run: npm ci
 
+      # Pulls published content from the CMS into src/data/generated/site.json.
+      # If the API is unreachable this keeps the committed copy rather than
+      # shipping an empty site, so a backend outage cannot take the site down.
+      - name: Pull content from the CMS
+        env:
+          NEXT_PUBLIC_API_URL: ${{ vars.NEXT_PUBLIC_API_URL }}
+        run: npm run content:pull
+
       - name: Build the static export
         env:
           # Absolute URL — a static site has no server to proxy /api through.
           NEXT_PUBLIC_API_URL: ${{ vars.NEXT_PUBLIC_API_URL }}
-        run: npm run build:static
+        run: BUILD_TARGET=static npx next build
 
       - name: Add the Apache config
         run: cp deploy/public_html.htaccess out/.htaccess

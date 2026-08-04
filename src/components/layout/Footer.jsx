@@ -3,6 +3,7 @@ import { Mail, MapPin, Phone } from 'lucide-react';
 
 import Logo from './Logo';
 import { footerLinks } from '@/data/navigation';
+import { telHref } from '@/lib/tel';
 import { company, contact } from '@/data/company';
 
 export default function Footer() {
@@ -65,20 +66,34 @@ export default function Footer() {
             </a>
           </ContactBlock>
 
-          <ContactBlock icon={Phone} label="Phone">
-            <ul className="space-y-1.5">
-              {contact.phones.slice(0, 2).map((p) => (
-                <li key={p.number}>
-                  <a
-                    href={`tel:+977${p.number}`}
-                    className="link-underline text-sm text-forest-200/75 hover:text-white"
-                  >
-                    {p.number} <span className="text-forest-300/60">({p.name})</span>
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </ContactBlock>
+          {/* Hidden entirely when no number is set, rather than rendering a bare label. */}
+          {contact.phone || contact.phones.length ? (
+            <ContactBlock icon={Phone} label="Phone">
+              <ul className="space-y-1.5">
+                {contact.phone ? (
+                  <li>
+                    <a
+                      href={`tel:${telHref(contact.phone)}`}
+                      className="link-underline text-sm text-forest-200/75 hover:text-white"
+                    >
+                      {contact.phone}
+                    </a>
+                  </li>
+                ) : null}
+
+                {contact.phones.slice(0, 2).map((p) => (
+                  <li key={p.number}>
+                    <a
+                      href={`tel:${telHref(p.number)}`}
+                      className="link-underline text-sm text-forest-200/75 hover:text-white"
+                    >
+                      {p.number} <span className="text-forest-300/60">({p.name})</span>
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </ContactBlock>
+          ) : null}
         </div>
 
         <div className="mt-12 flex flex-col gap-4 border-t border-white/10 pt-8 text-xs text-forest-300/60 sm:flex-row sm:items-center sm:justify-between">

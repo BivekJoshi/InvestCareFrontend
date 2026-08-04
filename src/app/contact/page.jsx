@@ -6,6 +6,7 @@ import Reveal from '@/components/ui/Reveal';
 import MediaFrame from '@/components/ui/MediaFrame';
 import ContactForm from '@/components/sections/ContactForm';
 import { company, contact } from '@/data/company';
+import { telHref } from '@/lib/tel';
 import { slideInLeft, slideInRight } from '@/lib/motion';
 
 export const metadata = {
@@ -40,21 +41,34 @@ export default function ContactPage() {
               </a>
             </InfoCard>
 
-            <InfoCard icon={Phone} label="Phone">
-              <ul className="grid gap-3 sm:grid-cols-2">
-                {contact.phones.map((person) => (
-                  <li key={person.number}>
-                    <a
-                      href={`tel:+977${person.number}`}
-                      className="block text-sm font-semibold text-forest-800 hover:text-forest-600"
-                    >
-                      {person.number}
-                    </a>
-                    <span className="text-xs text-forest-600">{person.name}</span>
-                  </li>
-                ))}
-              </ul>
-            </InfoCard>
+            {contact.phone || contact.phones.length ? (
+              <InfoCard icon={Phone} label="Phone">
+                {contact.phone ? (
+                  <a
+                    href={`tel:${telHref(contact.phone)}`}
+                    className="block text-sm font-semibold text-forest-800 hover:text-forest-600"
+                  >
+                    {contact.phone}
+                  </a>
+                ) : null}
+
+                {contact.phones.length ? (
+                  <ul className={`grid gap-3 sm:grid-cols-2 ${contact.phone ? 'mt-4' : ''}`}>
+                    {contact.phones.map((person) => (
+                      <li key={person.number}>
+                        <a
+                          href={`tel:${telHref(person.number)}`}
+                          className="block text-sm font-semibold text-forest-800 hover:text-forest-600"
+                        >
+                          {person.number}
+                        </a>
+                        <span className="text-xs text-forest-600">{person.name}</span>
+                      </li>
+                    ))}
+                  </ul>
+                ) : null}
+              </InfoCard>
+            ) : null}
 
             <div className="rounded-2xl bg-forest-900 p-8 text-cream shadow-lift">
               <p className="script text-2xl text-gold-400">“{company.tagline}”</p>

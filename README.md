@@ -19,6 +19,23 @@ This repo is a monolith holding both halves of the product:
 | [`src/app/admin/`](src/app/admin/) | The CMS, served at `/admin` — see [The CMS](#the-cms) below |
 | [`backend/`](backend/) | CMS API — Node.js + Express + PostgreSQL. Currently authentication only; see [backend/README.md](backend/README.md) |
 
+### Where the content comes from
+
+Every word on the site is stored in the CMS. `npm run content:pull` fetches it
+into `src/data/generated/site.json`, and the modules in [src/data/](src/data/)
+re-export it under the same names they always had — so components import from
+`@/data/company` exactly as before.
+
+```
+CMS (Postgres) ──► GET /api/public/site ──► src/data/generated/site.json ──► the build
+```
+
+Because the site is a **static export**, content is baked in at build time. A
+CMS edit goes live on the next deploy — push to `main`, or re-run the workflow.
+
+`site.json` is committed. If the API is unreachable during a build, the last
+known-good content is used rather than failing or shipping an empty page.
+
 ### The CMS
 
 | Route | Purpose |

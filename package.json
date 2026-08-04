@@ -7,8 +7,9 @@
     "dev": "concurrently -n web,api -c cyan,magenta -k \"npm:dev:web\" \"npm:dev:api\"",
     "dev:web": "next dev",
     "dev:api": "npm --prefix backend run dev",
+    "content:pull": "node scripts/fetch-content.mjs",
     "build": "next build",
-    "build:static": "BUILD_TARGET=static next build",
+    "build:static": "npm run content:pull && BUILD_TARGET=static next build",
     "start": "next start",
     "lint": "next lint",
     "setup": "npm install && npm --prefix backend install && npm --prefix backend run db:setup"

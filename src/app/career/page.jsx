@@ -4,12 +4,15 @@ import PageHero from '@/components/ui/PageHero';
 import Section from '@/components/ui/Section';
 import Reveal from '@/components/ui/Reveal';
 import Button from '@/components/ui/Button';
+import JobOpenings from '@/components/sections/JobOpenings';
 import { contact } from '@/data/company';
+import { jobs } from '@/data/portfolio';
 
 export const metadata = {
   title: 'Careers',
-  description:
-    'Career opportunities at Invest Care Limited. There are no open positions at this time — check back for future openings.',
+  description: jobs.length
+    ? `Open positions at Invest Care Limited — ${jobs.map((job) => job.title).join(', ')}.`
+    : 'Career opportunities at Invest Care Limited. There are no open positions at this time — check back for future openings.',
 };
 
 export default function CareerPage() {
@@ -23,6 +26,9 @@ export default function CareerPage() {
       />
 
       <Section tone="light">
+        {jobs.length ? (
+          <JobOpenings jobs={jobs} fallbackEmail={contact.email} />
+        ) : (
         <Reveal className="mx-auto max-w-2xl">
           <div className="rounded-2xl border border-forest-100 bg-white p-10 text-center shadow-card md:p-14">
             <span className="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-forest-800 text-cream">
@@ -63,6 +69,7 @@ export default function CareerPage() {
             </div>
           </div>
         </Reveal>
+        )}
       </Section>
     </>
   );

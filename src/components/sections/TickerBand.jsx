@@ -1,15 +1,7 @@
 import Marquee from '@/components/ui/Marquee';
 import { getIcon } from '@/components/ui/icon-map';
 import { sectors } from '@/data/sectors';
-
-const FACTS = [
-  'Incorporated 2074 BS',
-  'Public Limited Company',
-  'SEBON-compliant roadmap',
-  'IPO application · Target',
-  '5 active holdings',
-  // 'Reg. 175982/074/075',
-];
+import { tickerFacts as FACTS } from '@/data/company';
 
 /**
  * Two counter-scrolling rails between the hero and the page body — sectors on

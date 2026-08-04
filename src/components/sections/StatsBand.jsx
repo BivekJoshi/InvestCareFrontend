@@ -5,25 +5,19 @@ import { motion } from 'framer-motion';
 import Counter from '@/components/ui/Counter';
 import Aurora from '@/components/ui/Aurora';
 import { RevealGroup, RevealItem } from '@/components/ui/Reveal';
+import { landingStats } from '@/data/company';
 import { EASE, fadeUp, viewportOnce } from '@/lib/motion';
+import { parseStat } from '@/lib/stat';
 
-const STATS = [
-  { to: 5, prefix: '0', label: 'Active portfolio companies', note: 'Capital already deployed' },
-  { to: 6, prefix: '0', label: 'High-conviction sectors', note: 'Diversified across cycles' },
-  {
-    to: 100,
-    suffix: '+',
-    label: 'Combined years on the board',
-    note: 'Investing, operations, governance',
-  },
-  {
-    to: 22.17,
-    decimals: 2,
-    suffix: '%',
-    label: 'Equity IRR — Dobhan Khola',
-    note: '24.5 MW, financial closure complete',
-  },
-];
+/**
+ * Editors type the figure as they want to read it ("05", "22.17%"); `parseStat`
+ * splits the number from its decoration so the counter can animate it.
+ */
+const STATS = landingStats.map((stat) => ({
+  ...parseStat(stat.value),
+  label: stat.label,
+  note: stat.body,
+}));
 
 /**
  * Proof band between the intro and the strategy sections: four figures that
@@ -72,12 +66,16 @@ export default function StatsBand() {
             <RevealItem key={stat.label}>
               <div className="group">
                 <p className="font-display text-5xl font-bold text-gradient-gold md:text-6xl">
-                  <Counter
-                    to={stat.to}
-                    decimals={stat.decimals ?? 0}
-                    prefix={stat.prefix ?? ''}
-                    suffix={stat.suffix ?? ''}
-                  />
+                  {stat.text ? (
+                    stat.text
+                  ) : (
+                    <Counter
+                      to={stat.to}
+                      decimals={stat.decimals ?? 0}
+                      prefix={stat.prefix ?? ''}
+                      suffix={stat.suffix ?? ''}
+                    />
+                  )}
                 </p>
                 <p className="mt-4 text-sm font-semibold text-white">{stat.label}</p>
                 <p className="mt-1.5 text-xs leading-relaxed text-forest-200/60">{stat.note}</p>

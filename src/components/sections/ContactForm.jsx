@@ -2,9 +2,10 @@
 
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { CheckCircle2, Send } from 'lucide-react';
+import { AlertCircle, CheckCircle2, Loader2, Send } from 'lucide-react';
 
 import { contact } from '@/data/company';
+import { apiFetch } from '@/lib/api';
 import { EASE } from '@/lib/motion';
 
 const INTERESTS = [
@@ -19,21 +20,22 @@ const EMPTY = { name: '', email: '', phone: '', interest: INTERESTS[0], message:
 /**
  * Enquiry form.
  *
- * There is no mail backend wired up yet, so rather than silently discarding
- * submissions the form composes a pre-filled message and hands it to the
- * visitor's own mail client. To move to server-side delivery, replace
- * `handleSubmit` with a POST to a route handler (e.g. Resend or SMTP).
+ * Submits to the CMS, where the message lands in the Enquiries inbox. If the
+ * API cannot be reached the visitor is not left stranded — the enquiry is
+ * handed to their own mail client instead, so a message is never lost to a
+ * backend outage.
  */
 export default function ContactForm() {
   const [form, setForm] = useState(EMPTY);
   const [sent, setSent] = useState(false);
+  const [sending, setSending] = useState(false);
+  const [viaEmail, setViaEmail] = useState(false);
+  const [error, setError] = useState('');
 
   const update = (field) => (event) =>
     setForm((prev) => ({ ...prev, [field]: event.target.value }));
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-
+  const openMailClient = () => {
     const subject = `[Website enquiry] ${form.interest} — ${form.name}`;
     const body = [
       `Name: ${form.name}`,
@@ -47,8 +49,40 @@ export default function ContactForm() {
     window.location.href = `mailto:${contact.email}?subject=${encodeURIComponent(
       subject,
     )}&body=${encodeURIComponent(body)}`;
+  };
 
-    setSent(true);
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    setError('');
+    setSending(true);
+
+    try {
+      await apiFetch('/public/enquiries', {
+        method: 'POST',
+        auth: false,
+        body: {
+          name: form.name,
+          email: form.email,
+          phone: form.phone,
+          subject: form.interest,
+          message: form.message,
+        },
+      });
+
+      setSent(true);
+    } catch (err) {
+      // A validation error is the visitor's to fix; anything else is ours, and
+      // falling back to email is better than asking them to try again later.
+      if (/check the form|required|valid email/i.test(err.message)) {
+        setError(err.message);
+      } else {
+        openMailClient();
+        setViaEmail(true);
+        setSent(true);
+      }
+    } finally {
+      setSending(false);
+    }
   };
 
   if (sent) {
@@ -63,11 +97,12 @@ export default function ContactForm() {
           <CheckCircle2 className="h-6 w-6" aria-hidden="true" />
         </span>
         <h3 className="mt-6 font-display text-xl font-semibold text-forest-900">
-          Your message is ready to send
+          {viaEmail ? 'Your message is ready to send' : 'Thank you — we have your message'}
         </h3>
         <p className="mt-3 max-w-sm text-sm leading-relaxed text-forest-800/70">
-          We've opened your email client with the enquiry pre-filled. If nothing opened, write to us
-          directly at{' '}
+          {viaEmail
+            ? "We've opened your email client with the enquiry pre-filled. If nothing opened, write to us directly at "
+            : 'A director will get back to you shortly. You can also reach us at '}
           <a
             href={`mailto:${contact.email}`}
             className="font-semibold text-forest-700 underline underline-offset-4"
@@ -81,6 +116,7 @@ export default function ContactForm() {
           onClick={() => {
             setForm(EMPTY);
             setSent(false);
+            setViaEmail(false);
           }}
           className="mt-8 text-sm font-semibold text-forest-700 underline underline-offset-4 hover:text-forest-900"
         >
@@ -164,15 +200,40 @@ export default function ContactForm() {
 
       <button
         type="submit"
+        disabled={sending}
         className="group mt-8 inline-flex w-full items-center justify-center gap-2 rounded-full
                    bg-forest-800 px-7 py-3.5 text-sm font-semibold text-cream shadow-card transition-all
                    duration-300 hover:-translate-y-0.5 hover:bg-forest-700 hover:shadow-lift
                    focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2
-                   focus-visible:outline-gold-500 sm:w-auto"
+                   focus-visible:outline-gold-500 disabled:cursor-not-allowed disabled:opacity-60
+                   disabled:hover:translate-y-0 sm:w-auto"
       >
-        Send Enquiry
-        <Send className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" aria-hidden="true" />
+        {sending ? (
+          <>
+            <Loader2 className="h-4 w-4 animate-spin" aria-hidden="true" />
+            Sending…
+          </>
+        ) : (
+          <>
+            Send Enquiry
+            <Send
+              className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1"
+              aria-hidden="true"
+            />
+          </>
+        )}
       </button>
+
+      {error ? (
+        <p
+          role="alert"
+          className="mt-4 flex items-start gap-2 rounded-xl border border-red-200 bg-red-50 px-4 py-3
+                     text-sm text-red-800"
+        >
+          <AlertCircle className="mt-0.5 h-4 w-4 shrink-0" aria-hidden="true" />
+          {error}
+        </p>
+      ) : null}
 
       <p className="mt-4 text-xs leading-relaxed text-forest-800/55">
         By submitting you agree to be contacted about Invest Care Limited. This form does not

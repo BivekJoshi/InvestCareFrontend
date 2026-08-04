@@ -8,8 +8,30 @@ export const notFoundHandler = (req, res) => {
   });
 };
 
+/** Postgres and multer raise codes we can translate into honest 4xx replies. */
+const translate = (error) => {
+  if (error.name === "MulterError") {
+    const message =
+      error.code === "LIMIT_FILE_SIZE" ? "That file is larger than 5 MB" : error.message;
+    return new ApiError(400, message);
+  }
+
+  // unique_violation — a slug or email already taken.
+  if (error.code === "23505") {
+    return new ApiError(409, "That value is already in use");
+  }
+
+  // foreign_key_violation — referencing a row that is gone.
+  if (error.code === "23503") {
+    return new ApiError(400, "That reference no longer exists");
+  }
+
+  return error;
+};
+
 // eslint-disable-next-line no-unused-vars -- Express identifies error middleware by arity
-export const errorHandler = (error, _req, res, _next) => {
+export const errorHandler = (rawError, _req, res, _next) => {
+  const error = translate(rawError);
   const isKnown = error instanceof ApiError;
   const status = isKnown ? error.status : 500;
 

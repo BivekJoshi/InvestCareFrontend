@@ -1,6 +1,12 @@
+import { mkdirSync } from "node:fs";
+import { dirname, resolve } from "node:path";
+import { fileURLToPath } from "node:url";
+
 import dotenv from "dotenv";
 
 dotenv.config();
+
+const backendRoot = resolve(dirname(fileURLToPath(import.meta.url)), "../..");
 
 const bool = (value, fallback = false) =>
   value === undefined ? fallback : ["1", "true", "yes"].includes(String(value).toLowerCase());
@@ -32,6 +38,15 @@ export const env = {
 
   bcryptRounds: Number(process.env.BCRYPT_ROUNDS || 12),
 
+  /** Where uploaded images are written, and the origin they are served from. */
+  uploadsDir: process.env.UPLOADS_DIR
+    ? resolve(process.env.UPLOADS_DIR)
+    : resolve(backendRoot, "uploads"),
+  publicUrl: (process.env.PUBLIC_URL || `http://localhost:${process.env.PORT || 5000}`).replace(
+    /\/+$/,
+    ""
+  ),
+
   seedAdmin: {
     name: process.env.SEED_ADMIN_NAME || "Administrator",
     email: process.env.SEED_ADMIN_EMAIL,
@@ -45,6 +60,10 @@ export const env = {
  * without carrying auth secrets.
  */
 export function assertServerEnv() {
+  // Created on demand so a fresh checkout (or a fresh cPanel deploy, which
+  // never carries an empty directory over FTP) can accept uploads immediately.
+  mkdirSync(env.uploadsDir, { recursive: true });
+
   const missing = ["JWT_SECRET"].filter((key) => !process.env[key]);
 
   if (missing.length) {

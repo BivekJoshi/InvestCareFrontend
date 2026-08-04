@@ -21,10 +21,34 @@ export function clearToken() {
 }
 
 /**
+ * Identical GETs that are already in flight share one request.
+ *
+ * React StrictMode runs every effect twice in development, so each screen would
+ * otherwise fetch its data twice. The entry is dropped as soon as the request
+ * settles — this de-duplicates concurrent calls, it does not cache, so a reload
+ * after saving always hits the network.
+ */
+const inFlight = new Map();
+
+/**
  * Calls the API and unwraps the `{ success, data | error }` envelope.
  * Throws an Error carrying the server's message so callers can display it.
  */
 export async function apiFetch(path, { method = 'GET', body, auth = true } = {}) {
+  if (method === 'GET') {
+    const key = `${auth ? 'auth' : 'anon'}:${path}`;
+    const existing = inFlight.get(key);
+    if (existing) return existing;
+
+    const request = requestJson(path, { method, body, auth }).finally(() => inFlight.delete(key));
+    inFlight.set(key, request);
+    return request;
+  }
+
+  return requestJson(path, { method, body, auth });
+}
+
+async function requestJson(path, { method, body, auth }) {
   const headers = {};
   if (body) headers['Content-Type'] = 'application/json';
 
