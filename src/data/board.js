@@ -10,9 +10,9 @@ export const board = [
   {
     slug: 'madhu-paudel',
     name: 'Mr. Madhu Paudel',
-    role: 'Chairman, General Secretary - Medicine Importers’ Association of Nepal',
+    role: 'Chairman, ',
     credentials: 'M.Phil, LLB',
-    bio: '15+ years in pharmaceutical services and distribution, including senior roles at Ranbaxy and Synergy Overseas. Executive board member, Management Association of Nepal.',
+    bio: 'General Secretary - Medicine Importers’ Association of Nepal. 15+ years in pharmaceutical services and distribution, including senior roles at Ranbaxy and Synergy Overseas. Executive board member, Management Association of Nepal.',
     image: '/images/board/MaduCM.png',
   },
   {

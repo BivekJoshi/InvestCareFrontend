@@ -41,6 +41,7 @@ export default function CareerPage() {
             <div className="mt-9 border-t border-forest-100 pt-8">
               <p className="text-sm leading-relaxed text-forest-800/75">
                 If you would still like to be considered for future roles, send your CV to{' '}
+                <br/>
                 <a
                   href={`mailto:${contact.email}`}
                   className="break-all font-semibold text-forest-700 underline underline-offset-4 hover:text-forest-900"
