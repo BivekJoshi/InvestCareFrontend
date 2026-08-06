@@ -1,29 +1,30 @@
 'use client';
 
+import { useSiteContent } from '@/components/SiteContentProvider';
+
 import { motion } from 'framer-motion';
 
 import Counter from '@/components/ui/Counter';
 import Aurora from '@/components/ui/Aurora';
 import { RevealGroup, RevealItem } from '@/components/ui/Reveal';
-import { landingStats } from '@/data/company';
 import { EASE, fadeUp, viewportOnce } from '@/lib/motion';
 import { parseStat } from '@/lib/stat';
-
-/**
- * Editors type the figure as they want to read it ("05", "22.17%"); `parseStat`
- * splits the number from its decoration so the counter can animate it.
- */
-const STATS = landingStats.map((stat) => ({
-  ...parseStat(stat.value),
-  label: stat.label,
-  note: stat.body,
-}));
 
 /**
  * Proof band between the intro and the strategy sections: four figures that
  * count up on entry, separated by a line that draws itself across the band.
  */
 export default function StatsBand() {
+  const { content } = useSiteContent();
+
+  // Editors type the figure as they want to read it ("05", "22.17%");
+  // `parseStat` splits the number from its decoration so it can animate.
+  const STATS = content.landing.stats.map((stat) => ({
+    ...parseStat(stat.value),
+    label: stat.label,
+    note: stat.body,
+  }));
+
   return (
     <section className="relative overflow-hidden bg-forest-950 py-20 text-cream md:py-24">
       <Aurora intensity="soft" />

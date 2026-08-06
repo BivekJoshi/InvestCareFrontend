@@ -6,7 +6,8 @@ import { ArrowUpRight } from 'lucide-react';
 
 import { getIcon } from '@/components/ui/icon-map';
 import { motion as motionTokens } from '@/theme';
-import { heroPortfolio } from './hero.content';
+import { useSiteContent } from '@/components/SiteContentProvider';
+import { buildHeroContent } from './hero.content';
 
 const { duration, ease, stagger } = motionTokens;
 
@@ -18,6 +19,8 @@ const ROWS_DELAY = 0.75;
  * behind, one quiet row per holding.
  */
 export default function HeroRaisePanel() {
+  const { content } = useSiteContent();
+  const { heroPortfolio } = buildHeroContent(content);
   return (
     <motion.div
       className="relative"

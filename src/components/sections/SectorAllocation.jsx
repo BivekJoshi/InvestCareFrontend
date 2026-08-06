@@ -1,5 +1,7 @@
 'use client';
 
+import { useSiteContent } from '@/components/SiteContentProvider';
+
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 
@@ -8,11 +10,12 @@ import SectionHeading from '@/components/ui/SectionHeading';
 import AllocationDonut from '@/components/ui/AllocationDonut';
 import { RevealGroup, RevealItem } from '@/components/ui/Reveal';
 import { getIcon } from '@/components/ui/icon-map';
-import { sectors } from '@/data/sectors';
 import { fadeUp, slideInRight } from '@/lib/motion';
 import { cn, readableOn } from '@/lib/utils';
 
 export default function SectorAllocation({ tone = 'white' }) {
+  const { content } = useSiteContent();
+  const sectors = content.sectors;
   const [active, setActive] = useState(null);
 
   return (

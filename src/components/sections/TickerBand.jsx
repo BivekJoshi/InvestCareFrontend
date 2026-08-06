@@ -1,13 +1,17 @@
+'use client';
+
+import { useSiteContent } from '@/components/SiteContentProvider';
 import Marquee from '@/components/ui/Marquee';
 import { getIcon } from '@/components/ui/icon-map';
-import { sectors } from '@/data/sectors';
-import { tickerFacts as FACTS } from '@/data/company';
 
 /**
  * Two counter-scrolling rails between the hero and the page body — sectors on
  * top, company facts beneath — that keep the fold alive without adding weight.
  */
 export default function TickerBand() {
+  const { content } = useSiteContent();
+  const { sectors } = content;
+  const FACTS = content.landing.ticker;
   return (
     <section id="ticker" className="relative overflow-hidden border-y border-white/5 bg-forest-950 py-7">
       <div className="pointer-events-none absolute inset-0 grain opacity-[0.04]" aria-hidden="true" />

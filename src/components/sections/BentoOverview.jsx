@@ -1,5 +1,7 @@
 'use client';
 
+import { useSiteContent } from '@/components/SiteContentProvider';
+
 import { motion } from 'framer-motion';
 import { ArrowUpRight, Compass, Eye, ShieldCheck, Sparkles } from 'lucide-react';
 import Link from 'next/link';
@@ -10,7 +12,6 @@ import SpotlightCard from '@/components/ui/SpotlightCard';
 import TextReveal from '@/components/ui/TextReveal';
 import Button from '@/components/ui/Button';
 import { RevealGroup, RevealItem } from '@/components/ui/Reveal';
-import { company } from '@/data/company';
 import { fadeUp, scaleIn } from '@/lib/motion';
 
 /**
@@ -19,6 +20,10 @@ import { fadeUp, scaleIn } from '@/lib/motion';
  * composition rather than a stack of rows.
  */
 export default function BentoOverview() {
+  const { content } = useSiteContent();
+  // `values` is a sibling of the company document in the API payload; the
+  // legacy data module merged the two, and this component expects that shape.
+  const company = { ...content.company, values: content.values ?? [] };
   return (
     <Section id="overview" tone="light">
       <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">

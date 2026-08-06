@@ -1,14 +1,18 @@
+'use client';
+
+import { useSiteContent } from '@/components/SiteContentProvider';
 import Section from '@/components/ui/Section';
 import Button from '@/components/ui/Button';
 import Reveal, { RevealGroup, RevealItem } from '@/components/ui/Reveal';
 import MediaFrame from '@/components/ui/MediaFrame';
-import { board } from '@/data/board';
 import { slideInLeft } from '@/lib/motion';
 
 /**
  * Condensed board preview for the home page — links through to /leadership.
  */
 export default function LeadershipStrip() {
+  const { content } = useSiteContent();
+  const board = content.board;
   const featured = board.slice(0, 4);
 
   return (

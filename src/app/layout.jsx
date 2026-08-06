@@ -8,6 +8,7 @@ import ScrollProgress from '@/components/layout/ScrollProgress';
 import ThemeProvider from '@/theme/ThemeProvider';
 import CustomCursor from '@/components/layout/CustomCursor';
 import ChromeSlot from '@/components/layout/ChromeSlot';
+import SiteContentProvider from '@/components/SiteContentProvider';
 import { company } from '@/data/company';
 import { brand } from '@/theme';
 
@@ -94,6 +95,7 @@ export default function RootLayout({ children }) {
     <html lang="en" className={`${sans.variable} ${display.variable} ${script.variable}`}>
       <body className="flex min-h-screen flex-col">
         <ThemeProvider>
+          <SiteContentProvider>
           {/* Marketing shell — suppressed on /admin, which renders bare. */}
           <ChromeSlot>
             <Preloader />
@@ -116,6 +118,7 @@ export default function RootLayout({ children }) {
           <ChromeSlot>
             <Footer />
           </ChromeSlot>
+          </SiteContentProvider>
         </ThemeProvider>
       </body>
     </html>

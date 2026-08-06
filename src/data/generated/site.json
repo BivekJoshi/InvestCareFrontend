@@ -1,5 +1,5 @@
 {
-  "fetchedAt": "2026-08-04T10:25:51.398Z",
+  "fetchedAt": "2026-08-04T11:19:49.796Z",
   "source": "http://localhost:5000/api",
   "company": {
     "name": "Invest Care Limited",
@@ -208,17 +208,17 @@
   ],
   "sectors": [
     {
-      "id": "728fa41d-c463-426f-a2c9-4581a1deec9e",
-      "slug": "hospitality-tourism",
-      "name": "Hospitality & Tourism",
-      "share": "30.00",
-      "icon": "hotel",
-      "color": "#1f6b46",
-      "body": "Landmark Kathmandu (Sankalpa Hospitality) and Diamond Hill Resort, positioned to capture Nepal's 1M+ annual visitor economy.",
+      "id": "f01c4557-1938-4066-87a7-1738953093ca",
+      "slug": "agriculture",
+      "name": "Agriculture & Food Processing",
+      "share": "10.00",
+      "icon": "wheat",
+      "color": "#8bc4a2",
+      "body": "Kisan Agrobase Industries (KABIL), Nepal's first licensed natural mineral water manufacturer, serving domestic and export demand.",
       "position": 0,
       "isPublished": true,
-      "createdAt": "2026-08-04T09:21:17.916Z",
-      "updatedAt": "2026-08-04T09:36:55.259Z"
+      "createdAt": "2026-08-04T09:21:17.924Z",
+      "updatedAt": "2026-08-04T11:06:48.796Z"
     },
     {
       "id": "7514e487-3c81-4a65-946a-a0729271ad28",
@@ -231,7 +231,20 @@
       "position": 1,
       "isPublished": true,
       "createdAt": "2026-08-04T09:21:17.918Z",
-      "updatedAt": "2026-08-04T09:36:55.261Z"
+      "updatedAt": "2026-08-04T11:06:48.796Z"
+    },
+    {
+      "id": "728fa41d-c463-426f-a2c9-4581a1deec9e",
+      "slug": "hospitality-tourism",
+      "name": "Hospitality & Tourism",
+      "share": "30.00",
+      "icon": "hotel",
+      "color": "#1f6b46",
+      "body": "Landmark Kathmandu (Sankalpa Hospitality) and Diamond Hill Resort, positioned to capture Nepal's 1M+ annual visitor economy.",
+      "position": 2,
+      "isPublished": true,
+      "createdAt": "2026-08-04T09:21:17.916Z",
+      "updatedAt": "2026-08-04T11:06:48.796Z"
     },
     {
       "id": "37ec454b-f509-4293-aa1f-bfff3cdfba0b",
@@ -241,10 +254,10 @@
       "icon": "factory",
       "color": "#57a479",
       "body": "Classic Industries Limited and peers supporting import substitution and steady domestic cash flows.",
-      "position": 2,
+      "position": 3,
       "isPublished": true,
       "createdAt": "2026-08-04T09:21:17.919Z",
-      "updatedAt": "2026-08-04T09:36:55.262Z"
+      "updatedAt": "2026-08-04T11:06:48.796Z"
     },
     {
       "id": "fc811de3-99cb-446d-aa4f-e09b4a8b9b0a",
@@ -254,10 +267,10 @@
       "icon": "pill",
       "color": "#c9a227",
       "body": "Diagnostics and generics built for Nepal's underpenetrated, fast-growing healthcare market.",
-      "position": 3,
+      "position": 4,
       "isPublished": true,
       "createdAt": "2026-08-04T09:21:17.921Z",
-      "updatedAt": "2026-08-04T09:36:55.263Z"
+      "updatedAt": "2026-08-04T11:06:48.796Z"
     },
     {
       "id": "dd8cad3a-128f-48be-84fd-9be6a83f52d1",
@@ -267,23 +280,10 @@
       "icon": "laptop",
       "color": "#0f4029",
       "body": "Fintech and SaaS platforms benefiting from Nepal's 70%+ mobile penetration and digital economy push.",
-      "position": 4,
-      "isPublished": true,
-      "createdAt": "2026-08-04T09:21:17.923Z",
-      "updatedAt": "2026-08-04T09:36:55.264Z"
-    },
-    {
-      "id": "f01c4557-1938-4066-87a7-1738953093ca",
-      "slug": "agriculture",
-      "name": "Agriculture & Food Processing",
-      "share": "10.00",
-      "icon": "wheat",
-      "color": "#8bc4a2",
-      "body": "Kisan Agrobase Industries (KABIL), Nepal's first licensed natural mineral water manufacturer, serving domestic and export demand.",
       "position": 5,
       "isPublished": true,
-      "createdAt": "2026-08-04T09:21:17.924Z",
-      "updatedAt": "2026-08-04T09:36:55.265Z"
+      "createdAt": "2026-08-04T09:21:17.923Z",
+      "updatedAt": "2026-08-04T11:06:48.796Z"
     }
   ],
   "portfolio": [

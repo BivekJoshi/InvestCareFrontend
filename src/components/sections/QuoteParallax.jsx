@@ -1,21 +1,26 @@
 'use client';
 
+import { useSiteContent } from '@/components/SiteContentProvider';
+
 import { useRef } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { Quote } from 'lucide-react';
 
 import Aurora from '@/components/ui/Aurora';
 import Marquee from '@/components/ui/Marquee';
-import { investorQuote } from '@/data/company';
 import { EASE, viewportOnce } from '@/lib/motion';
-
-const WORDS = investorQuote.text.split(' ');
 
 /**
  * Board quote with a scroll-linked parallax backdrop. The sentence brightens
  * word by word as the section passes through the viewport.
  */
 export default function QuoteParallax() {
+  const { content } = useSiteContent();
+  const investorQuote = content.investorQuote;
+
+  // Derived per render — the quote can change when live content arrives.
+  const WORDS = (investorQuote.text ?? '').split(' ');
+
   const ref = useRef(null);
   const { scrollYProgress } = useScroll({ target: ref, offset: ['start end', 'end start'] });
 

@@ -1,3 +1,6 @@
+'use client';
+
+import { useSiteContent } from '@/components/SiteContentProvider';
 import { CheckCircle2 } from 'lucide-react';
 
 import Section from '@/components/ui/Section';
@@ -5,10 +8,11 @@ import SectionHeading from '@/components/ui/SectionHeading';
 import SpotlightCard from '@/components/ui/SpotlightCard';
 import Aurora from '@/components/ui/Aurora';
 import { RevealGroup, RevealItem } from '@/components/ui/Reveal';
-import { valueProps } from '@/data/company';
 import { cn } from '@/lib/utils';
 
 export default function WhyInvest({ tone = 'deep' }) {
+  const { content } = useSiteContent();
+  const valueProps = content.landing.valueProps;
   return (
     <Section id="why-invest" tone={tone} >
       <Aurora intensity="soft" />

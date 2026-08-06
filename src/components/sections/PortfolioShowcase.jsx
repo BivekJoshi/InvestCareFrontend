@@ -1,5 +1,7 @@
 'use client';
 
+import { useSiteContent } from '@/components/SiteContentProvider';
+
 import { useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -9,7 +11,6 @@ import { ArrowUpRight } from 'lucide-react';
 import MediaFrame from '@/components/ui/MediaFrame';
 import Aurora from '@/components/ui/Aurora';
 import { getIcon } from '@/components/ui/icon-map';
-import { portfolio, portfolioStats } from '@/data/portfolio';
 import { EASE, viewportOnce } from '@/lib/motion';
 
 /**
@@ -20,6 +21,8 @@ import { EASE, viewportOnce } from '@/lib/motion';
  * is both lighter and the interaction touch users expect.
  */
 export default function PortfolioShowcase() {
+  const { content } = useSiteContent();
+  const { portfolio, portfolioStats } = content;
   const ref = useRef(null);
   const trackRef = useRef(null);
   const [travel, setTravel] = useState(0);

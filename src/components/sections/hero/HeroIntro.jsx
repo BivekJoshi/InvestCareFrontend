@@ -6,13 +6,8 @@ import { CalendarDays, Landmark, ShieldCheck } from "lucide-react";
 import Button from "@/components/ui/Button";
 import Magnetic from "@/components/ui/Magnetic";
 import { motion as motionTokens } from "@/theme";
-import {
-  heroActions,
-  heroBadge,
-  heroHeadline,
-  heroLead,
-  heroTrust,
-} from "./hero.content";
+import { useSiteContent } from "@/components/SiteContentProvider";
+import { buildHeroContent, heroActions, heroBadge, heroHeadline, heroLead } from "./hero.content";
 
 const TRUST_ICONS = {
   shield: ShieldCheck,
@@ -39,6 +34,8 @@ const rise = (delay) => ({ duration: duration.slow, delay, ease });
  * the credibility row.
  */
 export default function HeroIntro() {
+  const { content } = useSiteContent();
+  const { heroTrust } = buildHeroContent(content);
   return (
     <div className="max-w-2xl">
       {/* <motion.div

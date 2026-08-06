@@ -4,13 +4,16 @@ import { motion } from 'framer-motion';
 
 import Counter from '@/components/ui/Counter';
 import { motion as motionTokens } from '@/theme';
-import { heroMetrics } from './hero.content';
+import { useSiteContent } from '@/components/SiteContentProvider';
+import { buildHeroContent } from './hero.content';
 
 /**
  * Full-width band closing the fold. Numeric entries count up on arrival;
  * everything else (dates, formatted currency) renders as written.
  */
 export default function HeroMetrics() {
+  const { content } = useSiteContent();
+  const { heroMetrics } = buildHeroContent(content);
   return (
     <motion.div
       className="relative z-10 border-t border-white/10 bg-forest-950/50 backdrop-blur-sm"
