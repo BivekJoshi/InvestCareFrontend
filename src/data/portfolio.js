@@ -113,10 +113,32 @@ export const portfolio = [
     imageHint: "River / powerhouse site — landscape, 1600×1000",
     logo: null, // company logo, transparent PNG/SVG: '/images/portfolio/logos/dobhan-khola-hydropower.png'
   },
+  {
+    slug: "himshila-power-company",
+    name: "Himshila Power Company Ltd.",
+    brand: "4.5 MW · Gasali Khola",
+    location: "Khaniyabas, Dhading District",
+    sector: "Hydropower",
+    icon: "zap",
+    status: "Active",
+    summary:
+      "4.5 MW run-of-river project on the Gasali Khola; PPA with NEA and financial closure complete.",
+    profile:
+      "4.5 MW run-of-river project on the Gasali Khola at Khaniyabas, Dhading; PPA with the Nepal Electricity Authority signed and financial closure completed February 2026.",
+    metrics: [
+      "14.13% equity IRR",
+      "6.6-year payback",
+      "26.5 GWh annual energy",
+      "ICRA Nepal [ICRANP] LB+ rating",
+    ],
+    image: "/images/portfolio/Himshila.png", // drop the file in and set to: '/images/portfolio/himshila-power-company.jpg'
+    imageHint: "River / powerhouse site — landscape, 1600×1000",
+    logo: null, // company logo, transparent PNG/SVG: '/images/portfolio/logos/himshila-power-company.png'
+  },
 ];
 
 export const portfolioStats = [
-  { value: "05", label: "Portfolio companies" },
+  { value: "06", label: "Portfolio companies" },
   { value: "04", label: "Sectors represented" },
-  { value: "40%", label: "Target allocation to Hospitality & Tourism" },
+  { value: "30%", label: "Target allocation to Hospitality & Tourism" },
 ];

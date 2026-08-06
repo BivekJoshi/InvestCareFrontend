@@ -24,6 +24,7 @@ automatically — no code change needed.
 | `classic-industries.jpg` | Classic Industries — factory floor or product line |
 | `kisan-agrobase.jpg` | KABIL — bottling plant or product range |
 | `dobhan-khola-hydropower.jpg` | Dobhan Khola — river or powerhouse site |
+| `himshila-power-company.jpg` | Himshila Power — Gasali Khola river or powerhouse site |
 
 ## `company/` — editorial imagery
 

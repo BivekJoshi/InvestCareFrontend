@@ -61,7 +61,7 @@ export const metadata = {
   openGraph: {
     title: `${company.name} — ${company.tagline}`,
     description:
-      'A diversified Nepali investment holding company with five active portfolio companies and a sequenced, SEBON-compliant path to listing.',
+      'A diversified Nepali investment holding company with six active portfolio companies and a sequenced, SEBON-compliant path to listing.',
     type: 'website',
     locale: 'en_US',
     siteName: company.name,

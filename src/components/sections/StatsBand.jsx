@@ -8,7 +8,7 @@ import { RevealGroup, RevealItem } from '@/components/ui/Reveal';
 import { EASE, fadeUp, viewportOnce } from '@/lib/motion';
 
 const STATS = [
-  { to: 5, prefix: '0', label: 'Active portfolio companies', note: 'Capital already deployed' },
+  { to: 6, prefix: '0', label: 'Active portfolio companies', note: 'Capital already deployed' },
   { to: 6, prefix: '0', label: 'High-conviction sectors', note: 'Diversified across cycles' },
   {
     to: 100,
